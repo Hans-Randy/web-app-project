@@ -1,0 +1,11 @@
+.grid_collumn-2 {
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 33.33%;
+}
+
+.grid_collumn-10 {
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 66.67%;
+}

@@ -1,0 +1,77 @@
+body {
+    margin: 0
+}
+.header {
+    height: var(--heading-height);
+    background-image: var(--primary);
+    color:aliceblue;
+    top: 0;
+}
+.nav-ul {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0px;
+    background: none;
+    margin: 0px
+}
+
+.nav-li { 
+    list-style: none; 
+    width: 100px;
+    height: var(--heading-height);
+    display: flex;
+    align-items: center;
+    background: none;  
+    cursor: pointer;
+    justify-content: center;
+    font-family: 'roboto', 'san-serif';
+    font-weight: 500;
+    box-sizing: border-box;
+}
+
+
+.nav-li:nth-child(2) {
+    margin-left: 10px;
+}
+
+.nav-li:hover {
+    border: 1px solid #fff;
+    border-radius: 4px;
+}
+
+.nav-img {
+    width: 100%;
+    height: var(--heading-height);
+}
+
+.nav-sign {
+    text-decoration: none;
+    color:aliceblue;
+    margin: 10px;
+}
+
+.searchBar{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    background-color:#fff;
+    margin: 10px;
+    border-radius: 4px;
+}
+.nav-cart-icon {
+    color: #fff;
+}
+.searchBar-input {
+    width: 100%;
+    height: 50%;
+    border: none;
+    outline: none;
+    padding: 5px;
+}
+.searchlogo-btn {
+    background-image: linear-gradient(to right, #ab1670 0%, #ab1670 100%);
+    height: 100%;
+    width: 10%;
+    border: none;
+    cursor: pointer;
+}
