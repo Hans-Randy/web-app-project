@@ -1,11 +1,47 @@
+import multer from "multer";
 import Product from "../models/Product.js";
 import validateProduct from "../validation/productValidation.js";
+
+const storage = new GridFsStorage({
+  url: process.env.MONGODB_CONNECTION_STRING,
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+          return reject(err);
+        }
+        const filename = buf.toString("hex") + path.extname(file.originalname);
+        const fileInfo = {
+          filename: filename,
+          bucketName: "productImages",
+        };
+        resolve(fileInfo);
+      });
+    });
+  },
+});
+
+const upload = multer({ storage });
+
+export const uploadMiddleware = upload.single("image");
 
 // GET all products
 export const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find();
-    res.json(products);
+    // Retrieve all products and populate the image metadata
+    const products = await Product.find().populate("imageId");
+
+    // Map over the products to include image URLs
+    const productsWithImages = products.map((product) => {
+      return {
+        ...product._doc,
+        imageUrl: product.imageId
+          ? `/products/image/${product.imageId.filename}`
+          : null,
+      };
+    });
+
+    res.json(productsWithImages);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -14,11 +50,22 @@ export const getAllProducts = async (req, res) => {
 // GET a single product by ID
 export const getProductById = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate("imageId");
+
     if (!product) {
       return res.status(404).json({ message: "product not found" });
     }
-    res.json(product);
+
+    gfs.files.findOne({ _id: product.imageId }, (err, file) => {
+      if (!file || file.length === 0) {
+        return res.status(404).send("Image not found.");
+      }
+
+      res.status(200).json({
+        product,
+        imageUrl: `/products/image/${file.filename}`,
+      });
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -39,13 +86,23 @@ export const getProductsByName = async (req, res) => {
     // Find products where the name contains the substring
     const products = await Product.find({
       name: { $regex: name, $options: "i" }, // Case-insensitive search in 'name'
-    });
+    }).populate("imageId");
 
     if (products.length === 0) {
       return res.status(404).json({ message: "No products found" });
     }
 
-    res.json(products);
+    // Map over the products to include image URLs
+    const productsWithImages = products.map((product) => {
+      return {
+        ...product._doc,
+        imageUrl: product.imageId
+          ? `/products/image/${product.imageId.filename}`
+          : null,
+      };
+    });
+
+    res.json(productsWithImages);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -58,7 +115,15 @@ export const createProduct = async (req, res) => {
   if (error) return res.status(400).json({ message: error.details[0].message });
 
   const { name, description, price, quantity, category } = req.body;
-  const product = new Product({ name, description, price, quantity, category });
+  const imageId = req.file.id;
+  const product = new Product({
+    name,
+    description,
+    price,
+    quantity,
+    category,
+    imageId,
+  });
 
   try {
     const savedProduct = await product.save();
