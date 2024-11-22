@@ -1,4 +1,7 @@
 import express from "express";
+import multer from "multer";
+import storage from "../utils/storage.js";
+
 import {
   getAllProducts,
   getProductById,
@@ -12,6 +15,10 @@ import {
 
 const router = express.Router();
 
+const upload = multer({ storage });
+
+const uploadMiddleware = upload.single("image");
+
 // GET all products or search products by name
 router.get("/", (req, res) => {
   if (req.query.name) {
@@ -24,7 +31,7 @@ router.get("/", (req, res) => {
 router.get("/:id", getProductById);
 
 // POST create a new product
-router.post("/", createProduct);
+router.post("/", uploadMiddleware, createProduct);
 
 // PUT update an existing product
 router.put("/:id", updateProduct);

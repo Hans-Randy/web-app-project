@@ -1,29 +1,5 @@
-import multer from "multer";
 import Product from "../models/Product.js";
 import validateProduct from "../validation/productValidation.js";
-
-const storage = new GridFsStorage({
-  url: process.env.MONGODB_CONNECTION_STRING,
-  file: (req, file) => {
-    return new Promise((resolve, reject) => {
-      crypto.randomBytes(16, (err, buf) => {
-        if (err) {
-          return reject(err);
-        }
-        const filename = buf.toString("hex") + path.extname(file.originalname);
-        const fileInfo = {
-          filename: filename,
-          bucketName: "productImages",
-        };
-        resolve(fileInfo);
-      });
-    });
-  },
-});
-
-const upload = multer({ storage });
-
-export const uploadMiddleware = upload.single("image");
 
 // GET all products
 export const getAllProducts = async (req, res) => {
