@@ -6,17 +6,24 @@ import { gfs } from "../utils/database.js";
 export const getAllProducts = async (req, res) => {
   try {
     // Retrieve all products and populate the image metadata
-    const products = await Product.find().populate("imageId");
+    const products = await Product.find();
 
-    // Map over the products to include image URLs
-    const productsWithImages = products.map((product) => {
-      return {
-        ...product._doc,
-        imageUrl: product.imageId
-          ? `/products/image/${product.imageId.filename}`
-          : null,
-      };
-    });
+    // Use Promise.all to resolve asynchronous calls for each product
+    const productsWithImages = await Promise.all(
+      products.map(async (product) => {
+        if (product.imageId) {
+          const file = await gfs.files.findOne({ _id: product.imageId });
+          return {
+            ...product._doc, // Spread the product document
+            imageUrl: file ? `/products/image/${file.filename}` : null,
+          };
+        }
+        return {
+          ...product._doc,
+          imageUrl: null, // Handle case when imageId is missing
+        };
+      })
+    );
 
     res.json(productsWithImages);
   } catch (error) {
@@ -33,15 +40,17 @@ export const getProductById = async (req, res) => {
       return res.status(404).json({ message: "product not found" });
     }
 
-    gfs.files.findOne({ _id: product.imageId }, (err, file) => {
-      if (!file || file.length === 0) {
-        return res.status(404).send("Image not found.");
-      }
+    const file = await gfs.files.findOne({ _id: product.imageId });
 
-      res.status(200).json({
-        product,
-        imageUrl: `/products/image/${file.filename}`,
-      });
+    if (!file || file.length === 0) {
+      return res
+        .status(404)
+        .send(`The image of product [${product.name}] could not be found.`);
+    }
+
+    res.status(200).json({
+      product,
+      imageUrl: `/products/image/${file.filename}`,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -63,21 +72,28 @@ export const getProductsByName = async (req, res) => {
     // Find products where the name contains the substring
     const products = await Product.find({
       name: { $regex: name, $options: "i" }, // Case-insensitive search in 'name'
-    }).populate("imageId");
+    });
 
     if (products.length === 0) {
       return res.status(404).json({ message: "No products found" });
     }
 
-    // Map over the products to include image URLs
-    const productsWithImages = products.map((product) => {
-      return {
-        ...product._doc,
-        imageUrl: product.imageId
-          ? `/products/image/${product.imageId.filename}`
-          : null,
-      };
-    });
+    // Use Promise.all to resolve asynchronous calls for each product
+    const productsWithImages = await Promise.all(
+      products.map(async (product) => {
+        if (product.imageId) {
+          const file = await gfs.files.findOne({ _id: product.imageId });
+          return {
+            ...product._doc, // Spread the product document
+            imageUrl: file ? `/products/image/${file.filename}` : null,
+          };
+        }
+        return {
+          ...product._doc,
+          imageUrl: null, // Handle case when imageId is missing
+        };
+      })
+    );
 
     res.json(productsWithImages);
   } catch (error) {
@@ -172,6 +188,9 @@ export const deleteProduct = async (req, res) => {
       return res.status(404).json({ message: "product not found" });
     }
 
+    await gfs.files.deleteOne({ _id: product.imageId });
+    // Delete the associated chunks from the chunks collection
+    await gfs.db.collection("chunks").deleteMany({ files_id: product.imageId });
     await product.deleteOne();
     res.json({ message: "product removed" });
   } catch (error) {
@@ -182,6 +201,9 @@ export const deleteProduct = async (req, res) => {
 // DELETE all products
 export const deleteAllProducts = async (req, res) => {
   try {
+    await gfs.files.deleteMany({});
+    // Delete all entries in the `chunks` collection
+    await gfs.db.collection("chunks").deleteMany({});
     const result = await Product.deleteMany({}); // Delete all documents in the 'products' collection
     res.json({
       message: "All products removed",
