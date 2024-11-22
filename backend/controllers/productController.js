@@ -1,5 +1,6 @@
 import Product from "../models/Product.js";
 import validateProduct from "../validation/productValidation.js";
+import { gfs } from "../utils/database.js";
 
 // GET all products
 export const getAllProducts = async (req, res) => {
@@ -26,7 +27,7 @@ export const getAllProducts = async (req, res) => {
 // GET a single product by ID
 export const getProductById = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id).populate("imageId");
+    const product = await Product.findById(req.params.id);
 
     if (!product) {
       return res.status(404).json({ message: "product not found" });

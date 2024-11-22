@@ -1,9 +1,9 @@
 import express from "express";
-import products from "./routes/products.js";
 import cors from "cors";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
-import connectToDB from "./utils/database.js";
+import products from "./routes/products.js";
+import { connectToDB } from "./utils/database.js";
 
 dotenv.config();
 
