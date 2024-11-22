@@ -1,0 +1,865 @@
+{
+	"info": {
+		"_postman_id": "93b6a6f4-7cc0-48e4-98f3-29c39fb28ee2",
+		"name": "E-Commerce - backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6839614"
+	},
+	"item": [
+		{
+			"name": "CreateProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Dragon Ball: Sparking Zero",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Fighting Game",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "120",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "Best seller",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/hansr/Downloads/dbz-sparking-zero.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "CreateProduct",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Dragon Ball: Sparking Zero",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Fighting Game",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "120",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "Best seller",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/hansr/Downloads/dbz-sparking-zero.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "274"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"112-2rG4yEmlLy49Wwgiv2S31prsj6Y\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 22 Nov 2024 22:00:45 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"Dragon Ball: Sparking Zero\",\n    \"description\": \"Fighting Game\",\n    \"price\": 120,\n    \"quantity\": 10,\n    \"category\": \"Best seller\",\n    \"imageId\": \"6740fef124d2f85da481b34c\",\n    \"_id\": \"6740ff09b3d3b9bb69cb4fc2\",\n    \"createdAt\": \"2024-11-22T22:00:42.395Z\",\n    \"updatedAt\": \"2024-11-22T22:00:42.395Z\",\n    \"__v\": 0\n}"
+				},
+				{
+					"name": "CreateProduct 1",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Dragon Ball: Sparking Zero",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Fighting Game",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "120",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "Best seller",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/hansr/Downloads/dbz-sparking-zero.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "274"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"112-sLjvKNFUAFbd7TsLDLwmTUg+o/o\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 22 Nov 2024 22:54:40 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"Dragon Ball: Sparking Zero\",\n    \"description\": \"Fighting Game\",\n    \"price\": 120,\n    \"quantity\": 10,\n    \"category\": \"Best seller\",\n    \"imageId\": \"67410bb022b287708082b3c9\",\n    \"_id\": \"67410bb021b42a674b61f433\",\n    \"createdAt\": \"2024-11-22T22:54:40.903Z\",\n    \"updatedAt\": \"2024-11-22T22:54:40.903Z\",\n    \"__v\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "GetProductById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/products/6740ff09b3d3b9bb69cb4fc2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"products",
+						"6740ff09b3d3b9bb69cb4fc2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetProductById",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/products/6740ff09b3d3b9bb69cb4fc2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products",
+								"6740ff09b3d3b9bb69cb4fc2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "352"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"160-Hm63AMdEoCgYNpxcHGmLvdtPGbU\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 22 Nov 2024 22:19:06 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"product\": {\n        \"_id\": \"6740ff09b3d3b9bb69cb4fc2\",\n        \"name\": \"Dragon Ball: Sparking Zero\",\n        \"description\": \"Fighting Game\",\n        \"price\": 120,\n        \"quantity\": 10,\n        \"category\": \"Best seller\",\n        \"imageId\": \"6740fef124d2f85da481b34c\",\n        \"createdAt\": \"2024-11-22T22:00:42.395Z\",\n        \"updatedAt\": \"2024-11-22T22:00:42.395Z\",\n        \"__v\": 0\n    },\n    \"imageUrl\": \"/products/image/15b9c60a11d8e0abd124ed953ae3e571.jpg\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GetAllProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"products",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetAllProducts",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/products/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "342"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"156-dM/oO0aagt820QflUzcr2WlCz38\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 22 Nov 2024 22:33:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"6740ff09b3d3b9bb69cb4fc2\",\n        \"name\": \"Dragon Ball: Sparking Zero\",\n        \"description\": \"Fighting Game\",\n        \"price\": 120,\n        \"quantity\": 10,\n        \"category\": \"Best seller\",\n        \"imageId\": \"6740fef124d2f85da481b34c\",\n        \"createdAt\": \"2024-11-22T22:00:42.395Z\",\n        \"updatedAt\": \"2024-11-22T22:00:42.395Z\",\n        \"__v\": 0,\n        \"imageUrl\": \"/products/image/15b9c60a11d8e0abd124ed953ae3e571.jpg\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GetProductsByName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/products?name=Dragon Ball: Sparking Zero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Dragon Ball: Sparking Zero"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetProductsByName",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/products?name=Dragon Ball: Sparking Zero",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Dragon Ball: Sparking Zero"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "342"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"156-dM/oO0aagt820QflUzcr2WlCz38\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 22 Nov 2024 22:37:26 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"6740ff09b3d3b9bb69cb4fc2\",\n        \"name\": \"Dragon Ball: Sparking Zero\",\n        \"description\": \"Fighting Game\",\n        \"price\": 120,\n        \"quantity\": 10,\n        \"category\": \"Best seller\",\n        \"imageId\": \"6740fef124d2f85da481b34c\",\n        \"createdAt\": \"2024-11-22T22:00:42.395Z\",\n        \"updatedAt\": \"2024-11-22T22:00:42.395Z\",\n        \"__v\": 0,\n        \"imageUrl\": \"/products/image/15b9c60a11d8e0abd124ed953ae3e571.jpg\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "DeleteProductById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/products/67410d73b46348e799f9e345",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"products",
+						"67410d73b46348e799f9e345"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "DeleteProductById",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/products/6740ff09b3d3b9bb69cb4fc2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products",
+								"6740ff09b3d3b9bb69cb4fc2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "29"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1d-EZZfeA1MPnO+RO8dXvtPy5rgHPc\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 22 Nov 2024 22:45:37 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"product removed\"\n}"
+				}
+			]
+		},
+		{
+			"name": "DeleteAllProducts",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"products",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "DeleteAllProducts",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/products/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "51"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"33-K+jsmm3E2DdN9c6IjeKz/U9WE40\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 22 Nov 2024 23:04:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"All products removed\",\n    \"deletedCount\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "UpdateProduct",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Dragon Ball: Sparking Zero\",\r\n    \"description\": \"Fighting Game\",\r\n    \"price\": 120,\r\n    \"quantity\": 10,\r\n    \"category\": \"Fighting Game\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/products/67410e5fb46348e799f9e34c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"products",
+						"67410e5fb46348e799f9e34c"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "UpdateProduct",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Dragon Ball: Sparking Zero\",\r\n    \"description\": \"Fighting Game\",\r\n    \"price\": 120,\r\n    \"quantity\": 10,\r\n    \"category\": \"Fighting Game\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/products/67410e5fb46348e799f9e34c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products",
+								"67410e5fb46348e799f9e34c"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "276"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"114-/WKyg1VPy9hs6xCjE6mzqRXfnp4\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 22 Nov 2024 23:07:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"_id\": \"67410e5fb46348e799f9e34c\",\n    \"name\": \"Dragon Ball: Sparking Zero\",\n    \"description\": \"Fighting Game\",\n    \"price\": 120,\n    \"quantity\": 10,\n    \"category\": \"Fighting Game\",\n    \"imageId\": \"67410e5c80efe909001ebb23\",\n    \"createdAt\": \"2024-11-22T23:06:07.456Z\",\n    \"updatedAt\": \"2024-11-22T23:07:00.638Z\",\n    \"__v\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "UpdateProduct",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Dragon Ball: Sparking Zero\",\r\n    \"description\": \"Fighting Game\",\r\n    \"price\": 150,\r\n    \"quantity\": 10,\r\n    \"category\": \"Fighting Game\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/products/67410e5fb46348e799f9e34c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"products",
+						"67410e5fb46348e799f9e34c"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "UpdateProduct",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Dragon Ball: Sparking Zero\",\r\n    \"description\": \"Fighting Game\",\r\n    \"price\": 150,\r\n    \"quantity\": 10,\r\n    \"category\": \"Fighting Game\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/products/67410e5fb46348e799f9e34c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products",
+								"67410e5fb46348e799f9e34c"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "276"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"114-CyiHKsuM5ewNw6JnsDJQYRtF1t8\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 22 Nov 2024 23:08:18 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"_id\": \"67410e5fb46348e799f9e34c\",\n    \"name\": \"Dragon Ball: Sparking Zero\",\n    \"description\": \"Fighting Game\",\n    \"price\": 150,\n    \"quantity\": 10,\n    \"category\": \"Fighting Game\",\n    \"imageId\": \"67410e5c80efe909001ebb23\",\n    \"createdAt\": \"2024-11-22T23:06:07.456Z\",\n    \"updatedAt\": \"2024-11-22T23:08:18.104Z\",\n    \"__v\": 0\n}"
+				}
+			]
+		}
+	]
+}
