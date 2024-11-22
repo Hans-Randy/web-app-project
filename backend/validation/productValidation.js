@@ -7,7 +7,6 @@ export default function validateProduct(data) {
     quantity: Joi.number().required(),
     price: Joi.number().required(),
     category: Joi.string().required(),
-    imageBase64: Joi.string().required(),
   });
 
   return schema.validate(data);

@@ -1,33 +1,25 @@
 import express from "express";
-import mongoose from "mongoose";
 import products from "./routes/products.js";
 import cors from "cors";
+import dotenv from "dotenv";
+import bodyParser from "body-parser";
+import connectToDB from "./utils/database.js";
 
-const app = express();
-const port = process.env.PORT;
+dotenv.config();
 
 // Middleware
-app.use(cors);
+const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-// MongoDB Connection for GridFS
-const connectionString = process.env.MONGODB_CONNECTION_STRING;
-const connection = mongoose.createConnection(connectionString, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-// Initialize GridFS Stream
-let gfs;
-connection.once("open", () => {
-  gfs = Grid(connection.db, mongoose.mongo);
-  gfs.collection("productImages"); // Bucket name
-});
+// Connect to MongoDB Atlas
+connectToDB(process.env.MONGODB_CONNECTION_STRING, process.env.BUCKET_NAME);
 
 // Routes
 app.use("/api/products", products);
 
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
