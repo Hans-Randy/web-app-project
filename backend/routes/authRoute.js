@@ -14,7 +14,7 @@ import {createToken} from '../utils/utils.js';
 
 
 
-router.get('/signup', (req,res)=>res.render('signup'))
+// router.get('/signup', (req,res)=>res.render('signup'))
 
 router.post('/signup', async (req,res) => {
     try{
@@ -27,7 +27,12 @@ router.post('/signup', async (req,res) => {
     }
     catch(ex)
     {
+        console.log(ex);
+        if (ex.code == 11000 ) {
+            res.status(409).json({ message: 'Email already exists' });
+        } else {
         res.status(500).json({ message: 'Internal server error' }); //To be modified to show the error
+        }
     }
 })
 
@@ -45,9 +50,18 @@ router.post('/login', async (req,res) => {
     }
     catch(ex)
     {
-
+        console.log("Login Failure: " + ex)
+        res.status(401).json({ message: ex.toString() });
     }
 })
+
+// Route for sign-out or logout
+router.post('/logout', (req, res) => {
+    // Clear the JWT cookie by setting its expiration date to a past time
+    res.cookie('jwt', '', { maxAge: 0, httpOnly: true }); // Deletes the cookie
+    res.status(200).json({ message: 'Logged out successfully' });
+});
+
 
 // module.exports = router
 export default router;

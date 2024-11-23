@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     // To send a JSON object back to the client
-    console.log("Hello World!");
+    console.log("Hello World! " + new Date().getTime());
     res.status(200).send({message: "Welcome to the eCommerce application after successful login !!"})
 })
 

@@ -6,11 +6,9 @@ import multer from "multer";
 import cors from "cors";
 
 // For authentication handling 
-// import authRoute from "./routes/authRoute"
 import { requireAuth } from "./utils/utils.js";
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/authRoute.js";
-// import testlogin from "./routes/testlogin.js";
 import testlogin from "./routes/testlogin.js";
 
 
