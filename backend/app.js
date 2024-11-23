@@ -40,7 +40,7 @@ mongoose
 
 
 // Routes
-app.use("/api/products", products);
+app.use("/api/products",requireAuth, products);
 
 // For authentication 
 app.use("/testlogin", requireAuth, testlogin); //Only used during the testing of authentication module
