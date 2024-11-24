@@ -36,7 +36,7 @@ const requireAuth = (req, res, next) => {
    }
    else{
       console.log("token undefined")
-      return res.status(401).json({ message: 'Unauthorized' });
+      return res.status(401).json({ message: 'Unauthorized: No token provided' });
       //No token found, respond with 401 Unauthorized for Front-End to handle the login page
    }
 }
