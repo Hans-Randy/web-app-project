@@ -1,6 +1,6 @@
 import Router from 'express';
 const router = Router()
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 import User from '../models/User.js';
@@ -9,7 +9,7 @@ import {createToken} from '../utils/utils.js';
 
 // router.get('/signup', (req,res)=>res.render('signup'))
 
-// Route to handle sign up
+// Route to handle sign up / creation
 router.post('/signup', async (req,res) => {
     try{
         // const {email, password} = req.body
@@ -22,7 +22,7 @@ router.post('/signup', async (req,res) => {
         // Create the token and then stores in the cookie
         const token = createToken(user._id)
         res.cookie('jwt', token, {httpOnly: true, maxAge: 3*24*60*60*1000}) // Token expires in 3 days
-        res.status(201).json({user: user._id})
+        res.status(200).json({user: user._id})
 
     }
     catch(ex)
