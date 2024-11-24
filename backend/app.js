@@ -41,8 +41,8 @@ app.use("/testlogin", requireAuth, testlogin); //Only used during the testing of
 app.use("/api/auth/", authRoute)
 
 // For Users Operations
-// app.use("/api/users", requireAuth, users);
-app.use("/api/users", users);
+app.use("/api/users", requireAuth, users);
+// app.use("/api/users", users);
 
 
 const port = process.env.PORT;
