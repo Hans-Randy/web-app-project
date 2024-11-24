@@ -7,6 +7,8 @@ const { isEmail } = validator;
 //   password: { type: String, required: true },
 // });
 
+
+// Create the user schema with the corresponding requirement
 const userSchema = new mongoose.Schema({
   email: {  //Note that the first field is email not username
     type: String,
@@ -37,20 +39,27 @@ const userSchema = new mongoose.Schema({
   }
 })
 
+// Set up the pre-save middleware to the User Schema  to hash the password before saving to database
 userSchema.pre('save', async function(next){
   const salt = await bcrypt.genSalt();
+  // Generate a random salt
   this.password = await bcrypt.hash(this.password, salt);
+  // Hash the password using the salt generated above
   next();
 
 })
 
-
+// To handle the user login
 userSchema.statics.login =  async function(email, password)
 {
   const user = await this.findOne({email});
+  // Check if the user can be found
   if(user)
   {
+    // if so, check the password using bcrypt.compare method
     const isAuth = await bcrypt.compare(password, user.password);
+
+    // if it is successful validated, return the user or else return the error
     if(isAuth)
     {
       return user;
