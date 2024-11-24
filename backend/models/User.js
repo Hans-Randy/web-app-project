@@ -13,12 +13,27 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Pls enter an email'],
     unique: true, //Set to unique as each email or user login needs to be different
     lowercase: true,
-    validator: [isEmail, 'Pls enter a valid email']
+    validate: {
+      validator: isEmail,
+      message: 'Pls enter a valid email'
+    }
   },
   password: {
     type: String,
     required: [true, 'Please enter password'],
     minlength: [6, 'Min length of password is 6']
+  },
+  firstName: {
+    type: String,
+    required: [true, 'Please enter first name ']
+  },
+  lastName: {
+    type: String,
+    required: [true, 'Please enter last name ']
+  },
+  address: {
+    type: String,
+    required: [true, 'Please enter address'],
   }
 })
 

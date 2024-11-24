@@ -1,25 +1,20 @@
-// const { Router } = require('express')
 import Router from 'express';
 const router = Router()
-// const jwt = require('jsonwebtoken')
 import jwt from 'jsonwebtoken';
-// require('dotenv').config()
 import dotenv from 'dotenv';
 dotenv.config();
-// const User = require('../models/user');
 import User from '../models/User.js';
-// const { createToken } = require('../utils/utils');
 import {createToken} from '../utils/utils.js';
-// const {createToken} = utils;
-
 
 
 // router.get('/signup', (req,res)=>res.render('signup'))
 
 router.post('/signup', async (req,res) => {
     try{
-        const {email, password} = req.body
-        const user = await User.create({email, password})
+        // const {email, password} = req.body
+        // const user = await User.create({email, password})
+        const {email, password, firstName, lastName, address} = req.body
+        const user = await User.create({email, password, firstName, lastName, address})
         const token = createToken(user._id)
         res.cookie('jwt', token, {httpOnly: true, maxAge: 3*24*60*60*1000}) // Token expires in 3 days
         res.status(201).json({user: user._id})
@@ -29,9 +24,11 @@ router.post('/signup', async (req,res) => {
     {
         console.log(ex);
         if (ex.code == 11000 ) {
-            res.status(409).json({ message: 'Email already exists' });
+            res.status(409).json({ message: 'Email already exists' }); //Return the error of duplicate email
+        } else if (ex._message == "User validation failed") {
+        res.status(400).json({ message: 'Sign Up Failed. ' + ex.message}); //Return the DB error to client
         } else {
-        res.status(500).json({ message: 'Internal server error' }); //To be modified to show the error
+            res.status(500).json({ message: 'Internal server error' });
         }
     }
 })

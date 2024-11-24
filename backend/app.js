@@ -35,7 +35,7 @@ app.use("/api/products",requireAuth, products);
 
 // For authentication 
 app.use("/testlogin", requireAuth, testlogin); //Only used during the testing of authentication module
-console.log("Started for testlogin and /api/auth");
+// console.log("Started for testlogin and /api/auth");
 // app.use("/", testlogin); //Only used during the testing of authentication module
 app.use("/api/auth/", authRoute)
 
