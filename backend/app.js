@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import products from "./routes/products.js";
 import { connectToDB } from "./utils/database.js";
+import users from "./routes/users.js";
 
 // For authentication handling 
 import { requireAuth } from "./utils/utils.js";
@@ -39,6 +40,9 @@ app.use("/testlogin", requireAuth, testlogin); //Only used during the testing of
 // app.use("/", testlogin); //Only used during the testing of authentication module
 app.use("/api/auth/", authRoute)
 
+// For Users Operations
+// app.use("/api/users", requireAuth, users);
+app.use("/api/users", users);
 
 
 const port = process.env.PORT;
