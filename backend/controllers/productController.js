@@ -1,6 +1,6 @@
 import Product from "../models/Product.js";
 import validateProduct from "../validation/productValidation.js";
-import { gfs } from "../utils/database.js";
+import { bucket } from "../utils/database.js";
 
 // GET all products
 export const getAllProducts = async (req, res) => {
@@ -11,16 +11,34 @@ export const getAllProducts = async (req, res) => {
     // Use Promise.all to resolve asynchronous calls for each product
     const productsWithImages = await Promise.all(
       products.map(async (product) => {
-        if (product.imageId) {
-          const file = await gfs.files.findOne({ _id: product.imageId });
-          return {
-            ...product._doc, // Spread the product document
-            imageUrl: file ? `/products/image/${file.filename}` : null,
-          };
+        let base64File;
+        // Find the image by ID
+        const image = await bucket.findOne({ _id: product.imageId });
+        if (!image || image.length === 0) {
+          return res.status(404).json({ error: "Image not found" });
         }
+
+        // Stream the file content
+        let fileData = Buffer.from([]);
+        const downloadStream = bucket.openDownloadStream(image._id);
+
+        downloadStream.on("data", (chunk) => {
+          fileData = Buffer.concat([fileData, chunk]);
+        });
+
+        downloadStream.on("end", () => {
+          // Encode file data in Base64
+          base64File = fileData.toString("base64");
+        });
         return {
           ...product._doc,
-          imageUrl: null, // Handle case when imageId is missing
+          image: {
+            filename: image.filename,
+            contentType: image.contentType,
+            length: image.length,
+            uploadDate: image.uploadDate,
+            data: base64File, // Send file content encoded in Base64
+          },
         };
       })
     );
@@ -40,17 +58,37 @@ export const getProductById = async (req, res) => {
       return res.status(404).json({ message: "product not found" });
     }
 
-    const file = await gfs.files.findOne({ _id: product.imageId });
+    const image = await bucket.findOne({ _id: product.imageId });
 
-    if (!file || file.length === 0) {
+    if (!image || image.length === 0) {
       return res
         .status(404)
         .send(`The image of product [${product.name}] could not be found.`);
     }
 
+    // Stream the file content
+    let fileData = Buffer.from([]);
+    let base64File;
+    const downloadStream = bucket.openDownloadStream(image._id);
+
+    downloadStream.on("data", (chunk) => {
+      fileData = Buffer.concat([fileData, chunk]);
+    });
+
+    downloadStream.on("end", () => {
+      // Encode file data in Base64
+      base64File = fileData.toString("base64");
+    });
+
     res.status(200).json({
       product,
-      imageUrl: `/products/image/${file.filename}`,
+      image: {
+        filename: image.filename,
+        contentType: image.contentType,
+        length: image.length,
+        uploadDate: image.uploadDate,
+        data: base64File, // Send file content encoded in Base64
+      },
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -81,16 +119,34 @@ export const getProductsByName = async (req, res) => {
     // Use Promise.all to resolve asynchronous calls for each product
     const productsWithImages = await Promise.all(
       products.map(async (product) => {
-        if (product.imageId) {
-          const file = await gfs.files.findOne({ _id: product.imageId });
-          return {
-            ...product._doc, // Spread the product document
-            imageUrl: file ? `/products/image/${file.filename}` : null,
-          };
+        let base64File;
+        // Find the image by ID
+        const image = await bucket.findOne({ _id: product.imageId });
+        if (!image || image.length === 0) {
+          return res.status(404).json({ error: "Image not found" });
         }
+
+        // Stream the file content
+        let fileData = Buffer.from([]);
+        const downloadStream = bucket.openDownloadStream(image._id);
+
+        downloadStream.on("data", (chunk) => {
+          fileData = Buffer.concat([fileData, chunk]);
+        });
+
+        downloadStream.on("end", () => {
+          // Encode file data in Base64
+          base64File = fileData.toString("base64");
+        });
         return {
           ...product._doc,
-          imageUrl: null, // Handle case when imageId is missing
+          image: {
+            filename: image.filename,
+            contentType: image.contentType,
+            length: image.length,
+            uploadDate: image.uploadDate,
+            data: base64File, // Send file content encoded in Base64
+          },
         };
       })
     );
@@ -188,9 +244,8 @@ export const deleteProduct = async (req, res) => {
       return res.status(404).json({ message: "product not found" });
     }
 
-    await gfs.files.deleteOne({ _id: product.imageId });
-    // Delete the associated chunks from the chunks collection
-    await gfs.db.collection("chunks").deleteMany({ files_id: product.imageId });
+    // Delete the image from GridFS
+    await bucket.delete(product.imageId);
     await product.deleteOne();
     res.json({ message: "product removed" });
   } catch (error) {
@@ -201,12 +256,38 @@ export const deleteProduct = async (req, res) => {
 // DELETE all products
 export const deleteAllProducts = async (req, res) => {
   try {
-    await gfs.files.deleteMany({});
-    // Delete all entries in the `chunks` collection
-    await gfs.db.collection("chunks").deleteMany({});
-    const result = await Product.deleteMany({}); // Delete all documents in the 'products' collection
+    const { ids } = req.body; // Expecting { ids: [id1, id2, ...] }
+
+    if (!Array.isArray(ids) || ids.length === 0)
+      return res.status(400).json({ error: "Invalid or missing 'ids' array." });
+
+    // Find products by IDs
+    const products = await Product.find({ _id: { $in: ids } });
+
+    if (!products.length) {
+      return res
+        .status(404)
+        .json({ error: "No products found for the provided IDs." });
+    }
+
+    // Extract image IDs from the products
+    const imageIds = products
+      .filter((product) => product.imageId) // Only consider products with imageIds
+      .map((product) => product.imageId);
+
+    // Delete associated images from GridFS
+    const deleteImagePromises = imageIds.map((imageId) =>
+      bucket.delete(new ObjectId(imageId)).catch((err) => {
+        console.error(
+          `Failed to delete image with ID ${imageId}: ${err.message}`
+        );
+      })
+    );
+    await Promise.all(deleteImagePromises);
+
+    const result = await Product.deleteMany({ _id: { $in: ids } });
     res.json({
-      message: "All products removed",
+      message: "Products deleted successfully.",
       deletedCount: result.deletedCount,
     });
   } catch (error) {

@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
-import Grid from "gridfs-stream";
+import { GridFSBucket } from "mongodb";
 
-let gfs; // Exportable variable for GridFS
-
+let bucket;
 const connectToDB = (connectionString, bucketName) => {
   mongoose.connect(connectionString, {
     useNewUrlParser: true,
@@ -12,11 +11,9 @@ const connectToDB = (connectionString, bucketName) => {
   const connection = mongoose.connection;
 
   connection.once("open", () => {
+    // Initialize GridFSBucket
+    bucket = new GridFSBucket(connection.db, { bucketName: bucketName });
     console.log("MongoDB connection established!");
-
-    // Initialize GridFS-Stream
-    gfs = Grid(connection.db, mongoose.mongo);
-    gfs.collection(bucketName); // Set the bucket name
   });
 
   connection.on("error", (err) => {
@@ -24,5 +21,4 @@ const connectToDB = (connectionString, bucketName) => {
   });
 };
 
-// Export both the connect function and the gfs instance
-export { connectToDB, gfs };
+export { connectToDB, bucket };
