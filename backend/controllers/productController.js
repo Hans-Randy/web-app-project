@@ -13,11 +13,12 @@ export const getAllProducts = async (req, res) => {
       products.map(async (product) => {
         let base64File;
         // Find the image by ID
-        const image = await bucket.findOne({ _id: product.imageId });
-        if (!image || image.length === 0) {
+        const images = await bucket.find({ _id: product.imageId }).toArray();
+        if (!images || images.length === 0) {
           return res.status(404).json({ error: "Image not found" });
         }
 
+        const image = images[0];
         // Stream the file content
         let fileData = Buffer.from([]);
         const downloadStream = bucket.openDownloadStream(image._id);
@@ -58,13 +59,15 @@ export const getProductById = async (req, res) => {
       return res.status(404).json({ message: "product not found" });
     }
 
-    const image = await bucket.findOne({ _id: product.imageId });
+    const images = await bucket.find({ _id: product.imageId }).toArray();
 
-    if (!image || image.length === 0) {
+    if (!images || images.length === 0) {
       return res
         .status(404)
         .send(`The image of product [${product.name}] could not be found.`);
     }
+
+    const image = images[0];
 
     // Stream the file content
     let fileData = Buffer.from([]);
@@ -121,11 +124,12 @@ export const getProductsByName = async (req, res) => {
       products.map(async (product) => {
         let base64File;
         // Find the image by ID
-        const image = await bucket.findOne({ _id: product.imageId });
-        if (!image || image.length === 0) {
+        const images = await bucket.find({ _id: product.imageId }).toArray();
+        if (!images || images.length === 0) {
           return res.status(404).json({ error: "Image not found" });
         }
 
+        const image = images[0];
         // Stream the file content
         let fileData = Buffer.from([]);
         const downloadStream = bucket.openDownloadStream(image._id);
@@ -164,7 +168,7 @@ export const createProduct = async (req, res) => {
   if (error) return res.status(400).json({ message: error.details[0].message });
 
   const { name, description, price, quantity, category } = req.body;
-  const imageId = req.file.id;
+  const imageId = req.uploadedFile.id;
   const product = new Product({
     name,
     description,
@@ -277,7 +281,7 @@ export const deleteAllProducts = async (req, res) => {
 
     // Delete associated images from GridFS
     const deleteImagePromises = imageIds.map((imageId) =>
-      bucket.delete(new ObjectId(imageId)).catch((err) => {
+      bucket.delete(imageId).catch((err) => {
         console.error(
           `Failed to delete image with ID ${imageId}: ${err.message}`
         );

@@ -20,10 +20,10 @@ const router = express.Router();
 // Multer storage configuration
 const storage = multer.memoryStorage(); // Temporarily store file in memory
 const upload = multer({ storage });
-const uploadSingleImage = upload.single("image");
+const uploadSingleFile = upload.single("file");
 
 // Middleware for uploading files to GridFSBucket
-const uploadImageToGridFS = async (req, res, next) => {
+const uploadFileToGridFS = async (req, res, next) => {
   if (!bucket) {
     return res.status(500).send("GridFSBucket not initialized");
   }
@@ -69,7 +69,7 @@ router.get("/", (req, res) => {
 router.get("/:id", getProductById);
 
 // POST create a new product
-router.post("/", uploadSingleImage, uploadImageToGridFS, createProduct);
+router.post("/", uploadSingleFile, uploadFileToGridFS, createProduct);
 
 // PUT update an existing product
 router.put("/:id", updateProduct);
