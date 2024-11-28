@@ -11,7 +11,7 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
-  deleteAllProducts,
+  deleteProducts,
   patchProduct,
 } from "../controllers/productController.js";
 
@@ -80,7 +80,7 @@ router.patch("/:id", patchProduct);
 // DELETE remove a product
 router.delete("/:id", deleteProduct);
 
-// DELETE remove all products
-router.delete("/", deleteAllProducts);
+// DELETE remove products
+router.delete("/", deleteProducts);
 
 export default router;

@@ -257,8 +257,8 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
-// DELETE all products
-export const deleteAllProducts = async (req, res) => {
+// DELETE products
+export const deleteProducts = async (req, res) => {
   try {
     const { ids } = req.body; // Expecting { ids: [id1, id2, ...] }
 
