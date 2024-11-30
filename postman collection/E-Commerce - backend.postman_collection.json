@@ -10,18 +10,25 @@
 			"name": "CreateProduct",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Set-Cookie",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDI4Mzg2YWZlMTExNzZhYTUwNjQxYyIsImlhdCI6MTczMjQyMzIyOSwiZXhwIjoxNzMyNjgyNDI5fQ.JhFmBCCqzIDv1V9vd6Luhz0AikBNp9ATths1npk1s6c",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
 						{
 							"key": "name",
-							"value": "Dragon Ball: Sparking Zero",
+							"value": "EA Sports FC 25",
 							"type": "text"
 						},
 						{
 							"key": "description",
-							"value": "Fighting Game",
+							"value": "Soccer Game",
 							"type": "text"
 						},
 						{
@@ -36,13 +43,13 @@
 						},
 						{
 							"key": "category",
-							"value": "Best seller",
+							"value": "Sports",
 							"type": "text"
 						},
 						{
-							"key": "image",
+							"key": "file",
 							"type": "file",
-							"src": "/C:/Users/hansr/Downloads/dbz-sparking-zero.jpg"
+							"src": "/C:/Users/hansr/Downloads/fc25.png"
 						}
 					]
 				},
@@ -64,18 +71,25 @@
 					"name": "CreateProduct",
 					"originalRequest": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Set-Cookie",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDI4Mzg2YWZlMTExNzZhYTUwNjQxYyIsImlhdCI6MTczMjQyMzIyOSwiZXhwIjoxNzMyNjgyNDI5fQ.JhFmBCCqzIDv1V9vd6Luhz0AikBNp9ATths1npk1s6c",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Dragon Ball: Sparking Zero",
+									"value": "EA Sports FC 25",
 									"type": "text"
 								},
 								{
 									"key": "description",
-									"value": "Fighting Game",
+									"value": "Soccer Game",
 									"type": "text"
 								},
 								{
@@ -90,13 +104,13 @@
 								},
 								{
 									"key": "category",
-									"value": "Best seller",
+									"value": "Sports",
 									"type": "text"
 								},
 								{
-									"key": "image",
+									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/hansr/Downloads/dbz-sparking-zero.jpg"
+									"src": "/C:/Users/hansr/Downloads/fc25.png"
 								}
 							]
 						},
@@ -131,15 +145,15 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "274"
+							"value": "256"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"112-2rG4yEmlLy49Wwgiv2S31prsj6Y\""
+							"value": "W/\"100-yXcj09wb4klpnTES9LjSOfOY30w\""
 						},
 						{
 							"key": "Date",
-							"value": "Fri, 22 Nov 2024 22:00:45 GMT"
+							"value": "Thu, 28 Nov 2024 05:26:46 GMT"
 						},
 						{
 							"key": "Connection",
@@ -151,100 +165,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"name\": \"Dragon Ball: Sparking Zero\",\n    \"description\": \"Fighting Game\",\n    \"price\": 120,\n    \"quantity\": 10,\n    \"category\": \"Best seller\",\n    \"imageId\": \"6740fef124d2f85da481b34c\",\n    \"_id\": \"6740ff09b3d3b9bb69cb4fc2\",\n    \"createdAt\": \"2024-11-22T22:00:42.395Z\",\n    \"updatedAt\": \"2024-11-22T22:00:42.395Z\",\n    \"__v\": 0\n}"
-				},
-				{
-					"name": "CreateProduct 1",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "Dragon Ball: Sparking Zero",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "Fighting Game",
-									"type": "text"
-								},
-								{
-									"key": "price",
-									"value": "120",
-									"type": "text"
-								},
-								{
-									"key": "quantity",
-									"value": "10",
-									"type": "text"
-								},
-								{
-									"key": "category",
-									"value": "Best seller",
-									"type": "text"
-								},
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/C:/Users/hansr/Downloads/dbz-sparking-zero.jpg"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:5000/api/products",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"products"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "274"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"112-sLjvKNFUAFbd7TsLDLwmTUg+o/o\""
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 22 Nov 2024 22:54:40 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"name\": \"Dragon Ball: Sparking Zero\",\n    \"description\": \"Fighting Game\",\n    \"price\": 120,\n    \"quantity\": 10,\n    \"category\": \"Best seller\",\n    \"imageId\": \"67410bb022b287708082b3c9\",\n    \"_id\": \"67410bb021b42a674b61f433\",\n    \"createdAt\": \"2024-11-22T22:54:40.903Z\",\n    \"updatedAt\": \"2024-11-22T22:54:40.903Z\",\n    \"__v\": 0\n}"
+					"body": "{\n    \"name\": \"EA Sports FC 25\",\n    \"description\": \"Soccer Game\",\n    \"price\": 120,\n    \"quantity\": 10,\n    \"category\": \"Sports\",\n    \"imageId\": \"6747ff15e63ba4b5aacb625d\",\n    \"_id\": \"6747ff15e63ba4b5aacb625e\",\n    \"createdAt\": \"2024-11-28T05:26:45.954Z\",\n    \"updatedAt\": \"2024-11-28T05:26:45.954Z\",\n    \"__v\": 0\n}"
 				}
 			]
 		},
@@ -254,7 +175,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/products/6740ff09b3d3b9bb69cb4fc2",
+					"raw": "http://localhost:5000/api/products/6747ff15e63ba4b5aacb625e",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -263,7 +184,7 @@
 					"path": [
 						"api",
 						"products",
-						"6740ff09b3d3b9bb69cb4fc2"
+						"6747ff15e63ba4b5aacb625e"
 					]
 				}
 			},
@@ -272,9 +193,16 @@
 					"name": "GetProductById",
 					"originalRequest": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Set-Cookie",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDI4Mzg2YWZlMTExNzZhYTUwNjQxYyIsImlhdCI6MTczMjQyMzIyOSwiZXhwIjoxNzMyNjgyNDI5fQ.JhFmBCCqzIDv1V9vd6Luhz0AikBNp9ATths1npk1s6c",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"url": {
-							"raw": "http://localhost:5000/api/products/6740ff09b3d3b9bb69cb4fc2",
+							"raw": "http://localhost:5000/api/products/6747ff15e63ba4b5aacb625e",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -283,7 +211,7 @@
 							"path": [
 								"api",
 								"products",
-								"6740ff09b3d3b9bb69cb4fc2"
+								"6747ff15e63ba4b5aacb625e"
 							]
 						}
 					},
@@ -305,15 +233,15 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "352"
+							"value": "384"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"160-Hm63AMdEoCgYNpxcHGmLvdtPGbU\""
+							"value": "W/\"180-L1rypUBtKg4SrkdDns6if6n7Y8s\""
 						},
 						{
 							"key": "Date",
-							"value": "Fri, 22 Nov 2024 22:19:06 GMT"
+							"value": "Thu, 28 Nov 2024 05:42:34 GMT"
 						},
 						{
 							"key": "Connection",
@@ -325,7 +253,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"product\": {\n        \"_id\": \"6740ff09b3d3b9bb69cb4fc2\",\n        \"name\": \"Dragon Ball: Sparking Zero\",\n        \"description\": \"Fighting Game\",\n        \"price\": 120,\n        \"quantity\": 10,\n        \"category\": \"Best seller\",\n        \"imageId\": \"6740fef124d2f85da481b34c\",\n        \"createdAt\": \"2024-11-22T22:00:42.395Z\",\n        \"updatedAt\": \"2024-11-22T22:00:42.395Z\",\n        \"__v\": 0\n    },\n    \"imageUrl\": \"/products/image/15b9c60a11d8e0abd124ed953ae3e571.jpg\"\n}"
+					"body": "{\n    \"product\": {\n        \"_id\": \"6747ff15e63ba4b5aacb625e\",\n        \"name\": \"EA Sports FC 25\",\n        \"description\": \"Soccer Game\",\n        \"price\": 120,\n        \"quantity\": 10,\n        \"category\": \"Sports\",\n        \"imageId\": \"6747ff15e63ba4b5aacb625d\",\n        \"createdAt\": \"2024-11-28T05:26:45.954Z\",\n        \"updatedAt\": \"2024-11-28T05:26:45.954Z\",\n        \"__v\": 0\n    },\n    \"image\": {\n        \"filename\": \"d1a92ea51f0498631fc13aab64a8586e.png\",\n        \"length\": 893157,\n        \"uploadDate\": \"2024-11-28T05:26:47.115Z\"\n    }\n}"
 				}
 			]
 		},
@@ -386,15 +314,15 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "342"
+							"value": "374"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"156-dM/oO0aagt820QflUzcr2WlCz38\""
+							"value": "W/\"176-VAbAD81/wj7RoYc0F+W7RPJId0E\""
 						},
 						{
 							"key": "Date",
-							"value": "Fri, 22 Nov 2024 22:33:12 GMT"
+							"value": "Thu, 28 Nov 2024 05:45:56 GMT"
 						},
 						{
 							"key": "Connection",
@@ -406,7 +334,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"_id\": \"6740ff09b3d3b9bb69cb4fc2\",\n        \"name\": \"Dragon Ball: Sparking Zero\",\n        \"description\": \"Fighting Game\",\n        \"price\": 120,\n        \"quantity\": 10,\n        \"category\": \"Best seller\",\n        \"imageId\": \"6740fef124d2f85da481b34c\",\n        \"createdAt\": \"2024-11-22T22:00:42.395Z\",\n        \"updatedAt\": \"2024-11-22T22:00:42.395Z\",\n        \"__v\": 0,\n        \"imageUrl\": \"/products/image/15b9c60a11d8e0abd124ed953ae3e571.jpg\"\n    }\n]"
+					"body": "[\n    {\n        \"_id\": \"6747ff15e63ba4b5aacb625e\",\n        \"name\": \"EA Sports FC 25\",\n        \"description\": \"Soccer Game\",\n        \"price\": 120,\n        \"quantity\": 10,\n        \"category\": \"Sports\",\n        \"imageId\": \"6747ff15e63ba4b5aacb625d\",\n        \"createdAt\": \"2024-11-28T05:26:45.954Z\",\n        \"updatedAt\": \"2024-11-28T05:26:45.954Z\",\n        \"__v\": 0,\n        \"image\": {\n            \"filename\": \"d1a92ea51f0498631fc13aab64a8586e.png\",\n            \"length\": 893157,\n            \"uploadDate\": \"2024-11-28T05:26:47.115Z\"\n        }\n    }\n]"
 				}
 			]
 		},
@@ -416,7 +344,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/products?name=Dragon Ball: Sparking Zero",
+					"raw": "http://localhost:5000/api/products?name=EA Sports FC 25",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -429,7 +357,7 @@
 					"query": [
 						{
 							"key": "name",
-							"value": "Dragon Ball: Sparking Zero"
+							"value": "EA Sports FC 25"
 						}
 					]
 				}
@@ -441,7 +369,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/products?name=Dragon Ball: Sparking Zero",
+							"raw": "http://localhost:5000/api/products?name=EA Sports FC 25",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -454,7 +382,7 @@
 							"query": [
 								{
 									"key": "name",
-									"value": "Dragon Ball: Sparking Zero"
+									"value": "EA Sports FC 25"
 								}
 							]
 						}
@@ -477,15 +405,15 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "342"
+							"value": "374"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"156-dM/oO0aagt820QflUzcr2WlCz38\""
+							"value": "W/\"176-VAbAD81/wj7RoYc0F+W7RPJId0E\""
 						},
 						{
 							"key": "Date",
-							"value": "Fri, 22 Nov 2024 22:37:26 GMT"
+							"value": "Thu, 28 Nov 2024 05:47:04 GMT"
 						},
 						{
 							"key": "Connection",
@@ -497,7 +425,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"_id\": \"6740ff09b3d3b9bb69cb4fc2\",\n        \"name\": \"Dragon Ball: Sparking Zero\",\n        \"description\": \"Fighting Game\",\n        \"price\": 120,\n        \"quantity\": 10,\n        \"category\": \"Best seller\",\n        \"imageId\": \"6740fef124d2f85da481b34c\",\n        \"createdAt\": \"2024-11-22T22:00:42.395Z\",\n        \"updatedAt\": \"2024-11-22T22:00:42.395Z\",\n        \"__v\": 0,\n        \"imageUrl\": \"/products/image/15b9c60a11d8e0abd124ed953ae3e571.jpg\"\n    }\n]"
+					"body": "[\n    {\n        \"_id\": \"6747ff15e63ba4b5aacb625e\",\n        \"name\": \"EA Sports FC 25\",\n        \"description\": \"Soccer Game\",\n        \"price\": 120,\n        \"quantity\": 10,\n        \"category\": \"Sports\",\n        \"imageId\": \"6747ff15e63ba4b5aacb625d\",\n        \"createdAt\": \"2024-11-28T05:26:45.954Z\",\n        \"updatedAt\": \"2024-11-28T05:26:45.954Z\",\n        \"__v\": 0,\n        \"image\": {\n            \"filename\": \"d1a92ea51f0498631fc13aab64a8586e.png\",\n            \"length\": 893157,\n            \"uploadDate\": \"2024-11-28T05:26:47.115Z\"\n        }\n    }\n]"
 				}
 			]
 		},
@@ -507,7 +435,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/products/67410d73b46348e799f9e345",
+					"raw": "http://localhost:5000/api/products/67410e5fb46348e799f9e34c",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -516,7 +444,7 @@
 					"path": [
 						"api",
 						"products",
-						"67410d73b46348e799f9e345"
+						"67410e5fb46348e799f9e34c"
 					]
 				}
 			},
@@ -583,10 +511,19 @@
 			]
 		},
 		{
-			"name": "DeleteAllProducts",
+			"name": "DeleteProducts",
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ids\": [\r\n        \"6747ff15e63ba4b5aacb625e\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:5000/api/products/",
 					"protocol": "http",
@@ -603,10 +540,19 @@
 			},
 			"response": [
 				{
-					"name": "DeleteAllProducts",
+					"name": "DeleteProducts",
 					"originalRequest": {
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ids\": [\r\n        \"6747ff15e63ba4b5aacb625e\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:5000/api/products/",
 							"protocol": "http",
@@ -639,15 +585,15 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "51"
+							"value": "61"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"33-K+jsmm3E2DdN9c6IjeKz/U9WE40\""
+							"value": "W/\"3d-rTcuJXnm1Q/ivnt4EAVWILGst8I\""
 						},
 						{
 							"key": "Date",
-							"value": "Fri, 22 Nov 2024 23:04:12 GMT"
+							"value": "Thu, 28 Nov 2024 05:54:05 GMT"
 						},
 						{
 							"key": "Connection",
@@ -659,7 +605,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"message\": \"All products removed\",\n    \"deletedCount\": 1\n}"
+					"body": "{\n    \"message\": \"Products deleted successfully.\",\n    \"deletedCount\": 1\n}"
 				}
 			]
 		},
@@ -670,7 +616,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Dragon Ball: Sparking Zero\",\r\n    \"description\": \"Fighting Game\",\r\n    \"price\": 120,\r\n    \"quantity\": 10,\r\n    \"category\": \"Fighting Game\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Dragon Ball\",\r\n    \"description\": \"Fighting Game\",\r\n    \"price\": 120,\r\n    \"quantity\": 10,\r\n    \"category\": \"Fighting Game\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -858,6 +804,449 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"_id\": \"67410e5fb46348e799f9e34c\",\n    \"name\": \"Dragon Ball: Sparking Zero\",\n    \"description\": \"Fighting Game\",\n    \"price\": 150,\n    \"quantity\": 10,\n    \"category\": \"Fighting Game\",\n    \"imageId\": \"67410e5c80efe909001ebb23\",\n    \"createdAt\": \"2024-11-22T23:06:07.456Z\",\n    \"updatedAt\": \"2024-11-22T23:08:18.104Z\",\n    \"__v\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"abc\",\r\n    \"password\": \"password\",\r\n    \"email\": \"abc@gmail.com\",\r\n    \"firstName\": \"abc\",\r\n    \"lastName\": \"masamba\",\r\n    \"address\": \"address\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"password\",\r\n    \"email\": \"randy@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Signin",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"password\",\r\n    \"email\": \"randy@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDI4Mzg2YWZlMTExNzZhYTUwNjQxYyIsImlhdCI6MTczMjQxNjU1MywiZXhwIjoxNzMyNjc1NzUzfQ.aKkBSyRZQ_HpaSBw4RMuFKy4oD3p2q3lWaGhTA-y8ik; Max-Age=259200; Path=/; Expires=Wed, 27 Nov 2024 02:49:13 GMT; HttpOnly"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "35"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"23-UzPGm+jNrN29AqZoLHUYJAGNAJQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 24 Nov 2024 02:49:13 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user\": \"67428386afe11176aa50641c\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Signout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"password\",\r\n    \"email\": \"randy@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetAllUsers",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1090"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"442-IhnrDMtCRopfFKpkuxyX0ZigdS8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 24 Nov 2024 04:25:31 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"67426429b7276f9c3f677c89\",\n        \"email\": \"test1@test.com\",\n        \"password\": \"$2b$10$AeSRIYvYd1KUKhri22n3UuUT.xvnekOs1jK/Xu2Gh1Vx.mOq.eohK\",\n        \"firstName\": \"TestFirst\",\n        \"lastName\": \"TestLast\",\n        \"address\": \"Centennial College\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"67426f2416bdc1193858ad35\",\n        \"email\": \"test2@test.com\",\n        \"password\": \"$2b$10$8aANQogUDPQm7rPIOj57vOpXVMNrnmFassMhqeL1ZnYzgInBH2Ibq\",\n        \"firstName\": \"Test2First\",\n        \"lastName\": \"Test2Last\",\n        \"address\": \"Centennial College2\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"67428386afe11176aa50641c\",\n        \"email\": \"randy@gmail.com\",\n        \"password\": \"$2b$10$fD5ennN9fNWL8X1qq4lIi.NKDpbMd64Wa0uviHA/JcFt3pa/XMQI2\",\n        \"firstName\": \"randy\",\n        \"lastName\": \"masamba\",\n        \"address\": \"address\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"67429db51d5332d326725791\",\n        \"email\": \"test3@test.com\",\n        \"password\": \"$2b$10$Spb/uKgSF9LgIxkZPH4XlOUB.8GMzX90o6.BquyDSgYLZSUYJZF7u\",\n        \"firstName\": \"Test3First\",\n        \"lastName\": \"Test3Last\",\n        \"address\": \"Centennial College3\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6742a3510c2e7ad543bbeaf9\",\n        \"email\": \"test4@test.com\",\n        \"password\": \"$2b$10$ODQKEnTmv3LURiKhF.Ckref4wFa3e3l6a.rVxsbdWBwxGVXGl9Niu\",\n        \"firstName\": \"Test4First\",\n        \"lastName\": \"Test4Last\",\n        \"address\": \"Centennial College4\",\n        \"__v\": 0\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GetUserById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/users/67428386afe11176aa50641c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"67428386afe11176aa50641c"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetUserById",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/users/67428386afe11176aa50641c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"67428386afe11176aa50641c"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "203"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"cb-GkaOdMJOEPjaFI3lyEHIFi+xYbY\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 24 Nov 2024 04:27:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"_id\": \"67428386afe11176aa50641c\",\n    \"email\": \"randy@gmail.com\",\n    \"password\": \"$2b$10$fD5ennN9fNWL8X1qq4lIi.NKDpbMd64Wa0uviHA/JcFt3pa/XMQI2\",\n    \"firstName\": \"randy\",\n    \"lastName\": \"masamba\",\n    \"address\": \"address\",\n    \"__v\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "DeleteUserById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/users/6742a3510c2e7ad543bbeaf9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"6742a3510c2e7ad543bbeaf9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUserById",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test4@test.com\",\r\n    \"password\": \"password\",\r\n    \"firstName\": \"Test4First\",\r\n    \"lastName\": \"Test4Last\",\r\n    \"address\": \"Centennial College4 - updated\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users/6742a3510c2e7ad543bbeaf9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"6742a3510c2e7ad543bbeaf9"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "UpdateUserById",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test4@test.com\",\r\n    \"password\": \"password\",\r\n    \"firstName\": \"Test4First\",\r\n    \"lastName\": \"Test4Last\",\r\n    \"address\": \"Centennial College4 - updated\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/6742a3510c2e7ad543bbeaf9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"6742a3510c2e7ad543bbeaf9"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "231"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"e7-td6TgUgiksHVmc96lFQpXakcdfw\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 24 Nov 2024 04:31:08 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"_id\": \"6742a3510c2e7ad543bbeaf9\",\n    \"email\": \"test4@test.com\",\n    \"password\": \"$2b$10$QizcH6aZCFiWws2xosPXUO/t.0lJwaFzRTeTq7kpm5A7R5LL0cUaK\",\n    \"firstName\": \"Test4First\",\n    \"lastName\": \"Test4Last\",\n    \"address\": \"Centennial College4 - updated\",\n    \"__v\": 0\n}"
 				}
 			]
 		}
