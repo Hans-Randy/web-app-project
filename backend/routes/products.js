@@ -19,7 +19,16 @@ const router = express.Router();
 
 // Multer storage configuration
 const storage = multer.memoryStorage(); // Temporarily store file in memory
-const upload = multer({ storage });
+const upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+    if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+      cb(null, true);
+    } else {
+      cb(new Error("Only .jpeg and .png files are allowed!"), false);
+    }
+  },
+});
 const uploadSingleFile = upload.single("file");
 
 // Middleware for uploading files to GridFSBucket
