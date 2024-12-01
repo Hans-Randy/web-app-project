@@ -18,7 +18,7 @@ function Navbar() {
     isLoggedIn()
   }, [])
 
-  // needs better logic, maybe decode jwt and check if expired?
+  //lazy way, just check if jwt cookie exists. final submission should check if jwt is valid, and expiry date
   const isLoggedIn = () => {
 
     const cookies = document.cookie.split(';');
@@ -43,9 +43,29 @@ function Navbar() {
   }
 
   //signout api and remove jwt cookie
-  const handleSignout = (e) => {
+  const handleSignout = async (e) => {
     e.preventDefault()
-    
+    try {
+      let response = await fetch('http://localhost:5000/api/auth/logout/', { 
+          method: 'POST',
+          mode:'cors',
+          headers: {
+          'Content-Type': 'application/json' ,
+          'Accept': 'application/json',            
+      },
+          mode: 'cors',
+          credentials: 'include',
+      })
+          
+      if (response.ok) {
+          window.alert("Logged out!")
+          window.location.reload()
+      } else {
+          window.alert("Something went wrong")
+      }
+  } catch(err) {
+      console.log(err) 
+  }
   }
 
   return (
