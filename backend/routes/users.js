@@ -6,7 +6,7 @@ import {
     updateUser,
     deleteUser,
     deleteAllUsers,
-    createUser
+    createUser,
 } from "../controllers/userController.js";
 
 router.get('/:id', getUserById, async (req,res) => {

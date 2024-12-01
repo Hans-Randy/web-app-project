@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import User from '../models/User.js';
+import bcrypt from 'bcrypt';
 
 // User creation is handled in the Sign Up rather than here
 

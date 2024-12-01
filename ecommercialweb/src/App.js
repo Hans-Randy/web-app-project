@@ -1,8 +1,26 @@
 import Navbar from "./UI/heading";
 import Content from "./UI/content";
 import Category from "./UI/category";
+import {useState, useEffect} from "react";
 
 function App() {
+  useEffect(() => {
+    isLoggedIn()
+  }, [])
+
+  const isLoggedIn = () => {
+
+    const cookies = document.cookie.split(';');
+     for (let cookie of cookies) {
+          cookie = cookie.trim();
+          if (cookie.startsWith('jwt' + '=')) {
+             return true;
+          }
+     }
+    return false;
+    
+  }
+
   return (
     <div className="App">
       <Navbar />
@@ -13,7 +31,12 @@ function App() {
               <Category />
             </div>
             <div className="grid_collumn-10">
-              <Content />
+              {isLoggedIn() ? (
+                <Content />
+              ) : (
+                <p>Must Be Logged in to view Content!</p>
+              )}
+              
             </div>
           </div>
         </div>

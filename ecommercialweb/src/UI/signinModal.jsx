@@ -2,15 +2,44 @@ import '../layout/css/layout.css'
 import '../layout/css/modal.css'
 import React, { useState, useEffect } from 'react';
 
+let fetchUsers = async (user) => {
+    try {
+        let response = await fetch('http://localhost:5000/api/auth/login/', { 
+            method: 'POST',
+            mode:'cors',
+            headers: {
+            'Content-Type': 'application/json' ,
+            'Accept': 'application/json',            
+        },
+            mode: 'cors',
+            credentials: 'include',
+            body: JSON.stringify(user)
+        })
+            
+        if (response.ok) {
+            window.alert("Logged in!")
+            window.location.reload()
+        } else {
+            window.alert("Something went wrong")
+        }
+    } catch(err) {
+        console.log(err) 
+    }   
+}
+
 function SigninModal( { isVisible, setVisibility } ) {
 
-    const [username, setUsername] = useState("")
+    
+
+    
+
+    const [email, setEmail] = useState("")
 
     const [password, setPassword] = useState("")
 
-    const handleUsername = (e) => {
+    const handleEmail = (e) => {
         e.preventDefault()
-        setUsername(e.target.value)
+        setEmail(e.target.value)
     }
 
     const handlePassword = (e) => {
@@ -24,15 +53,19 @@ function SigninModal( { isVisible, setVisibility } ) {
 
 
     // will need backend to make this function. find a user and use the bcrypt compare to see if the password matches
-    const handleSignin = (e) => {
+    const handleSignin = async (e) => {
         e.preventDefault()
 
+        
+
         let user = {
-            username: username,
+            email: email,
             password: password
         }
 
-        console.log(user)
+        await fetchUsers(user)
+
+        handleClose()
     }
 
     return (
@@ -47,8 +80,8 @@ function SigninModal( { isVisible, setVisibility } ) {
                     </div>
 
                     <div className="auth-form body">
-                        <label>Username</label>
-                        <input type="text" className="auth-form_input" placeholder='Username' required onChange={handleUsername}/>
+                        <label>Email</label>
+                        <input type="text" className="auth-form_input" placeholder='Email' required onChange={handleEmail}/>
                         <label>Password</label>
                         <input type="text" className="auth-form_input" placeholder='Password' required onChange={handlePassword}/>
                     </div>

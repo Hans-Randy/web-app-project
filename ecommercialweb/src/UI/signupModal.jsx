@@ -2,17 +2,56 @@ import '../layout/css/layout.css'
 import '../layout/css/modal.css'
 import React, { useState } from 'react';
 
+let createUser = async (user) => {
+    try {
+        let response = await fetch('http://localhost:5000/api/auth/signup', { 
+            method: 'POST',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+        },
+            mode:'cors',
+            credentials: 'include',
+            body: JSON.stringify(user)
+        })
+        
+        if (response.ok) {
+            window.alert("Sucessfully created user")
+        } else {
+            window.alert("Something went wrong")
+        }
+
+    } catch(err) {
+        
+        console.log(err)
+    }   
+}
+
 function SignupModal( { isVisible, setVisibility } ) {
-
-    const [username, setUsername] = useState("")
-
-    const [email, setEmail] = useState("")
 
     const [password, setPassword] = useState("")
 
-    const handleUsername = (e) => {
+    const [email, setEmail] = useState("")
+
+    const [firstname, setFirstname] = useState("")
+
+    const [lastname, setLastname] = useState("")
+
+    const [address, setAddress] = useState("")
+
+    const handleFirstname = (e) => {
         e.preventDefault()
-        setUsername(e.target.value)
+        setFirstname(e.target.value)
+    }
+
+    const handleLastname = (e) => {
+        e.preventDefault()
+        setLastname(e.target.value)
+    }
+
+    const handleAddress = (e) => {
+        e.preventDefault()
+        setAddress(e.target.value)
     }
 
     const handleEmail = (e) => {
@@ -26,16 +65,21 @@ function SignupModal( { isVisible, setVisibility } ) {
     }
 
     //needs backend to function, create new user from input info and save to database, probably jwt to keep session status?
-    const handleSignup = (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault()
 
         let user = {
             email: email,
-            username: username,
+            firstName: firstname,
+            lastName: lastname,
+            address: address,
             password: password
         }
 
-        console.log(user)
+        await createUser(user)
+        
+        handleClose()
+        
     }
 
     const handleClose = () => {
@@ -55,11 +99,15 @@ function SignupModal( { isVisible, setVisibility } ) {
 
                     <div className="auth-form body">
                         <label>Email</label>
-                        <input type="email" className="auth-form_input" placeholder='Email' required onChange={handleEmail}/>
-                        <label>Username</label>
-                        <input type="text" className="auth-form_input" placeholder='Username' required onChange={handleUsername}/>
+                        <input type="text" className="auth-form_input" placeholder='Email' required onChange={handleEmail}/>
                         <label>Password</label>
                         <input type="text" className="auth-form_input" placeholder='Password' required onChange={handlePassword}/>
+                        <label>First Name</label>
+                        <input type="text" className="auth-form_input" placeholder='First Name' required onChange={handleFirstname}/>
+                        <label>Last Name</label>
+                        <input type="text" className="auth-form_input" placeholder='Last Name' required onChange={handleLastname}/>
+                        <label>Address</label>
+                        <input type="text" className="auth-form_input" placeholder='Address' required onChange={handleAddress}/>
                     </div>
                     
                     <div className='auth-form_aside'>

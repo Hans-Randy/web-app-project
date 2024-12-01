@@ -3,15 +3,35 @@ import "../layout/css/modal.css";
 import "../layout/css/layout.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SignupModal from "./signupModal";
 import SigninModal from "./signinModal";
+
+
 
 function Navbar() {
   
   const [signupVis, setSignupvis] = useState(false);
   const [signinVis, setSigninvis] = useState(false);
-  
+
+  useEffect(() => {
+    isLoggedIn()
+  }, [])
+
+  // needs better logic, maybe decode jwt and check if expired?
+  const isLoggedIn = () => {
+
+    const cookies = document.cookie.split(';');
+     for (let cookie of cookies) {
+          cookie = cookie.trim();
+          if (cookie.startsWith('jwt' + '=')) {
+             return true;
+          }
+     }
+    return false;
+    
+  }
+
   const signupModal = (e) => {
     e.preventDefault()
     setSignupvis(true)
@@ -22,8 +42,15 @@ function Navbar() {
     setSigninvis(true)
   }
 
+  //signout api and remove jwt cookie
+  const handleSignout = (e) => {
+    e.preventDefault()
+    
+  }
+
   return (
     <header className="header">
+      
       <SignupModal isVisible={signupVis} setVisibility={setSignupvis} ></SignupModal>
       <SigninModal isVisible={signinVis} setVisibility={setSigninvis} ></SigninModal>
       <nav className="nav">
@@ -50,13 +77,22 @@ function Navbar() {
               Sign Up
             </a>
           </li>
+          {isLoggedIn() ? ( 
           <li className="nav-li">
+          <a onClick={handleSignout} className="nav-sign">
+            Sign Out
+          </a>
+        </li>
+          ) : (
+        <li className="nav-li">
             <a onClick={signinModal} className="nav-sign">
               Sign In
             </a>
           </li>
+          )}
+          
           <li className="nav-li">
-            <FontAwesomeIcon icon={faCartShopping} />
+            <FontAwesomeIcon icon={faCartShopping}/>
             Cart
           </li>
         </ul>

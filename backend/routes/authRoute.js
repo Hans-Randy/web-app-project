@@ -21,8 +21,8 @@ router.post('/signup', async (req,res) => {
         const user = await User.create({email, password, firstName, lastName, address})
         // Create the token and then stores in the cookie
         const token = createToken(user._id)
-        res.cookie('jwt', token, {httpOnly: true, maxAge: 3*24*60*60*1000}) // Token expires in 3 days
-        res.status(200).json({user: user._id})
+        res.cookie('jwt', token, {httpOnly: false, maxAge: 3*24*60*60*1000}) // Token expires in 3 days
+        res.status(200).json(user)
 
     }
     catch(ex)
@@ -50,9 +50,10 @@ router.post('/login', async (req,res) => {
         const user = await User.login(email, password);
         // Create the token and stores in cookie if the user is validated
         const token = createToken(user._id)
-        res.cookie('jwt', token, {httpOnly: true, maxAge: 3*24*60*60*1000})
-        res.status(201).json({user: user._id})
-        console.log("It ends");
+        res.cookie('jwt', token, {httpOnly: false, maxAge: 3*24*60*60*1000})
+
+        res.status(200).json(res.getHeaders())
+
     }
     catch(ex)
     {
@@ -65,7 +66,7 @@ router.post('/login', async (req,res) => {
 // Route for sign-out or logout
 router.post('/logout', (req, res) => {
     // Clear the JWT cookie by setting its expiration date to a past time
-    res.cookie('jwt', '', { maxAge: 0, httpOnly: true }); // Deletes the cookie
+    res.cookie('jwt', '', { maxAge: 0, httpOnly: false }); // Deletes the cookie
     res.status(200).json({ message: 'Logged out successfully' });
 });
 

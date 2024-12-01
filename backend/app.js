@@ -15,8 +15,8 @@ dotenv.config();
 
 // Middleware
 const app = express();
-app.use(cors());
 app.use(express.json());
+//app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser()); // For authentication
 
@@ -24,15 +24,17 @@ app.use(cookieParser()); // For authentication
 connectToDB(process.env.MONGODB_CONNECTION_STRING, process.env.BUCKET_NAME);
 
 // Enable CORS for React front-end (running on port 3000)
-// app.use(cors({
-//   origin: 'http://localhost:3000',  // URL of your React app
-//   methods: ['GET', 'POST'],
-//   credentials: true,  // Allow cookies or authorization headers
-// }));
-
+app.use(cors({
+  origin: 'http://localhost:3000',  // URL of your React app
+  methods: ['GET', 'POST'],
+  credentials: true,  // Allow cookies or authorization headers
+}));
 
 // Routes
-app.use("/api/products",requireAuth, products);
+//app.use("/api/products",requireAuth, products);
+
+
+app.use("/api/products", products);
 
 // For authentication 
 app.use("/testlogin", requireAuth, testlogin); //Only used during the testing of authentication module
@@ -41,7 +43,8 @@ app.use("/testlogin", requireAuth, testlogin); //Only used during the testing of
 app.use("/api/auth/", authRoute)
 
 // For Users Operations
-app.use("/api/users", requireAuth, users);
+//app.use("/api/users", requireAuth, users);
+app.use("/api/users", users);
 // app.use("/api/users", users);
 
 
