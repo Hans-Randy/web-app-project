@@ -11,26 +11,32 @@ export const getAllProducts = async (req, res) => {
     // Use Promise.all to resolve asynchronous calls for each product
     const productsWithImages = await Promise.all(
       products.map(async (product) => {
-        let base64File;
         // Find the image by ID
         const images = await bucket.find({ _id: product.imageId }).toArray();
         if (!images || images.length === 0) {
-          return res.status(404).json({ error: "Image not found" });
+          return null; // Return null if no image is found
         }
 
         const image = images[0];
         // Stream the file content
-        let fileData = Buffer.from([]);
-        const downloadStream = bucket.openDownloadStream(image._id);
+        const base64File = await new Promise((resolve, reject) => {
+          let fileData = Buffer.from([]);
+          const downloadStream = bucket.openDownloadStream(image._id);
 
-        downloadStream.on("data", (chunk) => {
-          fileData = Buffer.concat([fileData, chunk]);
+          downloadStream.on("data", (chunk) => {
+            fileData = Buffer.concat([fileData, chunk]);
+          });
+
+          downloadStream.on("end", () => {
+            // Encode file data in Base64 and resolve the promise
+            resolve(fileData.toString("base64"));
+          });
+
+          downloadStream.on("error", (err) => {
+            reject(err); // Reject the promise on error
+          });
         });
 
-        downloadStream.on("end", () => {
-          // Encode file data in Base64
-          base64File = fileData.toString("base64");
-        });
         return {
           ...product._doc,
           image: {
@@ -44,7 +50,18 @@ export const getAllProducts = async (req, res) => {
       })
     );
 
-    res.json(productsWithImages);
+    // Filter out any null results (products without images)
+    const validProducts = productsWithImages.filter(
+      (product) => product !== null
+    );
+
+    if (validProducts.length === 0) {
+      return res
+        .status(404)
+        .json({ error: "No products with valid images found." });
+    }
+
+    res.json(validProducts);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -56,7 +73,7 @@ export const getProductById = async (req, res) => {
     const product = await Product.findById(req.params.id);
 
     if (!product) {
-      return res.status(404).json({ message: "product not found" });
+      return res.status(404).json({ message: "Product not found" });
     }
 
     const images = await bucket.find({ _id: product.imageId }).toArray();
@@ -69,18 +86,22 @@ export const getProductById = async (req, res) => {
 
     const image = images[0];
 
-    // Stream the file content
-    let fileData = Buffer.from([]);
-    let base64File;
-    const downloadStream = bucket.openDownloadStream(image._id);
+    // Stream the file content and encode it in Base64
+    const base64File = await new Promise((resolve, reject) => {
+      let fileData = Buffer.from([]);
+      const downloadStream = bucket.openDownloadStream(image._id);
 
-    downloadStream.on("data", (chunk) => {
-      fileData = Buffer.concat([fileData, chunk]);
-    });
+      downloadStream.on("data", (chunk) => {
+        fileData = Buffer.concat([fileData, chunk]);
+      });
 
-    downloadStream.on("end", () => {
-      // Encode file data in Base64
-      base64File = fileData.toString("base64");
+      downloadStream.on("end", () => {
+        resolve(fileData.toString("base64")); // Resolve with Base64 encoded data
+      });
+
+      downloadStream.on("error", (err) => {
+        reject(err); // Reject on error
+      });
     });
 
     res.status(200).json({
@@ -122,26 +143,32 @@ export const getProductsByName = async (req, res) => {
     // Use Promise.all to resolve asynchronous calls for each product
     const productsWithImages = await Promise.all(
       products.map(async (product) => {
-        let base64File;
         // Find the image by ID
         const images = await bucket.find({ _id: product.imageId }).toArray();
         if (!images || images.length === 0) {
-          return res.status(404).json({ error: "Image not found" });
+          return null; // Return null if no image is found
         }
 
         const image = images[0];
-        // Stream the file content
-        let fileData = Buffer.from([]);
-        const downloadStream = bucket.openDownloadStream(image._id);
 
-        downloadStream.on("data", (chunk) => {
-          fileData = Buffer.concat([fileData, chunk]);
+        // Stream the file content and encode it in Base64
+        const base64File = await new Promise((resolve, reject) => {
+          let fileData = Buffer.from([]);
+          const downloadStream = bucket.openDownloadStream(image._id);
+
+          downloadStream.on("data", (chunk) => {
+            fileData = Buffer.concat([fileData, chunk]);
+          });
+
+          downloadStream.on("end", () => {
+            resolve(fileData.toString("base64")); // Resolve with Base64 encoded data
+          });
+
+          downloadStream.on("error", (err) => {
+            reject(err); // Reject on error
+          });
         });
 
-        downloadStream.on("end", () => {
-          // Encode file data in Base64
-          base64File = fileData.toString("base64");
-        });
         return {
           ...product._doc,
           image: {
@@ -155,7 +182,18 @@ export const getProductsByName = async (req, res) => {
       })
     );
 
-    res.json(productsWithImages);
+    // Filter out any null results (products without images)
+    const validProducts = productsWithImages.filter(
+      (product) => product !== null
+    );
+
+    if (validProducts.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No products with valid images found." });
+    }
+
+    res.json(validProducts);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

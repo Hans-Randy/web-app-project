@@ -2,7 +2,7 @@ import "../layout/css/layout.css";
 import "../layout/css/category.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function Category() {
   const Categories = [
