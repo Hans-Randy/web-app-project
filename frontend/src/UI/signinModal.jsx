@@ -1,63 +1,32 @@
 import "../layout/css/layout.css";
 import "../layout/css/modal.css";
-import React, { useState } from "react";
+import React, { useRef } from "react";
+import { signIn } from "../utils/auth";
 
-let fetchUsers = async (user) => {
-  try {
-    let response = await fetch("http://localhost:5000/api/auth/login/", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      mode: "cors",
-      credentials: "include",
-      body: JSON.stringify(user),
-    });
-
-    if (response.ok) {
-      window.alert("Logged in!");
-      window.location.reload();
-    } else {
-      window.alert("Something went wrong");
-    }
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-function SigninModal({ isVisible, setVisibility }) {
-  const [email, setEmail] = useState("");
-
-  const [password, setPassword] = useState("");
-
-  const handleEmail = (e) => {
-    e.preventDefault();
-    setEmail(e.target.value);
-  };
-
-  const handlePassword = (e) => {
-    e.preventDefault();
-    setPassword(e.target.value);
-  };
+const SigninModal = ({ isVisible, setVisibility }) => {
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const handleClose = () => {
     setVisibility(false);
   };
 
-  // will need backend to make this function. find a user and use the bcrypt compare to see if the password matches
-  const handleSignin = async (e) => {
+  const handleSignIn = async (e) => {
+    console.log("handleSignIn");
     e.preventDefault();
-
-    let user = {
-      email: email,
-      password: password,
+    const credentials = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
     };
 
-    await fetchUsers(user);
-
+    try {
+      const result = await signIn(credentials);
+      console.log("Sign In Successful:", result);
+    } catch (error) {
+      console.error("Sign In Failed:", error);
+    }
     handleClose();
+    window.location.reload();
   };
 
   return (
@@ -66,7 +35,6 @@ function SigninModal({ isVisible, setVisibility }) {
       <div className="modal_body">
         <div className="modal_content">
           <div className="auth-form_heading">
-            <h3 className="auth-form_signUp">Sign Up</h3>
             <h3 className="auth-form_signIn">Sign In</h3>
           </div>
 
@@ -77,7 +45,7 @@ function SigninModal({ isVisible, setVisibility }) {
               className="auth-form_input"
               placeholder="Email"
               required
-              onChange={handleEmail}
+              ref={emailRef}
             />
             <label>Password</label>
             <input
@@ -85,7 +53,7 @@ function SigninModal({ isVisible, setVisibility }) {
               className="auth-form_input"
               placeholder="Password"
               required
-              onChange={handlePassword}
+              ref={passwordRef}
             />
           </div>
 
@@ -94,7 +62,7 @@ function SigninModal({ isVisible, setVisibility }) {
               <button className="btn btn_back" onClick={handleClose}>
                 Back
               </button>
-              <button className="btn btn--primary" onClick={handleSignin}>
+              <button className="btn btn--primary" onClick={handleSignIn}>
                 Sign In
               </button>
             </div>
@@ -103,5 +71,5 @@ function SigninModal({ isVisible, setVisibility }) {
       </div>
     </div>
   );
-}
+};
 export default SigninModal;
