@@ -1,25 +1,36 @@
 import Navbar from "./UI/heading";
 import Content from "./UI/content";
 import Category from "./UI/category";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   useEffect(() => {
-    isLoggedIn()
-  }, [])
+    const checkLoginStatus = () => {
+      setLoggedIn(isLoggedIn());
+    };
+
+    // Check login status initially
+    checkLoginStatus();
+
+    // Set an interval to check login status every 5 minutes
+    const intervalId = setInterval(checkLoginStatus, 5 * 60 * 1000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
 
   const isLoggedIn = () => {
-
-    const cookies = document.cookie.split(';');
-     for (let cookie of cookies) {
-          cookie = cookie.trim();
-          if (cookie.startsWith('jwt' + '=')) {
-             return true;
-          }
-     }
+    const cookies = document.cookie.split(";");
+    for (let cookie of cookies) {
+      cookie = cookie.trim();
+      if (cookie.startsWith("jwt" + "=")) {
+        return true;
+      }
+    }
     return false;
-    
-  }
+  };
 
   return (
     <div className="App">
@@ -31,12 +42,11 @@ function App() {
               <Category />
             </div>
             <div className="grid_collumn-10">
-              {isLoggedIn() ? (
+              {loggedIn ? (
                 <Content />
               ) : (
                 <p>Must Be Logged in to view Content!</p>
               )}
-              
             </div>
           </div>
         </div>

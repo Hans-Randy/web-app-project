@@ -9,6 +9,7 @@ import {
 import { useState, useEffect } from "react";
 import SignupModal from "./signupModal";
 import SigninModal from "./signinModal";
+import { signOut } from "../utils/auth";
 
 function Navbar() {
   const [signupVis, setSignupvis] = useState(false);
@@ -44,23 +45,8 @@ function Navbar() {
   const handleSignout = async (e) => {
     e.preventDefault();
     try {
-      let response = await fetch("http://localhost:5000/api/auth/logout/", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        mode: "cors",
-        credentials: "include",
-      });
-
-      if (response.ok) {
-        window.alert("Logged out!");
-        window.location.reload();
-      } else {
-        window.alert("Something went wrong");
-      }
+      await signOut();
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }
@@ -95,11 +81,15 @@ function Navbar() {
               />
             </button>
           </div>
-          <li className="nav-li">
-            <a onClick={signupModal} className="nav-sign">
-              Sign Up
-            </a>
-          </li>
+          {isLoggedIn() ? (
+            ""
+          ) : (
+            <li className="nav-li">
+              <a onClick={signupModal} className="nav-sign">
+                Sign Up
+              </a>
+            </li>
+          )}
           {isLoggedIn() ? (
             <li className="nav-li">
               <a onClick={handleSignout} className="nav-sign">
