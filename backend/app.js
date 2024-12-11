@@ -22,7 +22,7 @@ connectToDB(process.env.MONGODB_CONNECTION_STRING, process.env.BUCKET_NAME);
 
 // List of allowed origins
 const allowedOrigins = [
-  "https://web-app-project-t1me.onrender.com",
+  "https://e-commerce-group-1.netlify.app/",
   "http://localhost:3000", // Include your local development URL
 ];
 
