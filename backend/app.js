@@ -47,7 +47,7 @@ app.use(cors(corsOptions));
 app.use("/api/auth/", authRoute);
 app.use("/api/users", requireAuth, users);
 app.use("/api/products", requireAuth, products);
-app.use("/api/categories", requireAuth, categories);
+app.use("/api/categories", categories);
 
 const port = process.env.PORT;
 app.listen(port, () => {
