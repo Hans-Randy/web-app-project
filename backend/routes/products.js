@@ -8,6 +8,7 @@ import {
   getAllProducts,
   getProductById,
   getProductsByName,
+  getProductsByCategory,
   createProduct,
   updateProduct,
   deleteProduct,
@@ -70,6 +71,9 @@ const uploadFileToGridFS = async (req, res, next) => {
 router.get("/", (req, res) => {
   if (req.query.name) {
     return getProductsByName(req, res);
+  }
+  if (req.query.category) {
+    return getProductsByCategory(req, res);
   }
   return getAllProducts(req, res);
 });

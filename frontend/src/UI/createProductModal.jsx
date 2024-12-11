@@ -1,14 +1,14 @@
 import "../layout/css/layout.css";
 import "../layout/css/modal.css";
 import React, { useState } from "react";
-import { updateProduct, patchProduct } from "../utils/products";
+import { createProduct } from "../utils/products";
 
-const UpdateProductModal = ({ isVisible, setVisibility, productData }) => {
-  const [name, setName] = useState(productData.name);
-  const [description, setDescription] = useState(productData.description);
-  const [price, setPrice] = useState(productData.price);
-  const [category, setCategory] = useState(productData.category);
-  const [quantity, setQuantity] = useState(productData.quantity);
+const CreateProductModal = ({ isVisible, setVisibility }) => {
+  const [name, setName] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [quantity, setQuantity] = useState(null);
   const [imageFile, setImageFile] = useState(null); // State to hold the selected image file
 
   const handleImageChange = (e) => {
@@ -30,22 +30,12 @@ const UpdateProductModal = ({ isVisible, setVisibility, productData }) => {
     }
 
     try {
-      let result;
-      if (imageFile) result = await updateProduct(productData._id, formData);
-      // Pass FormData to updateProduct
-      else
-        result = await patchProduct(productData._id, {
-          name,
-          description,
-          price,
-          category,
-          quantity,
-        });
-      console.log("Product Update Successful:", result.data);
+      const result = await createProduct(formData); // Pass FormData to updateProduct
+      console.log("Create Product Successful:", result.data);
       handleClose();
       window.location.reload(); // Optional: reload page or handle state update
     } catch (error) {
-      console.error("Product Update Failed:", error);
+      console.error("Create Product Failed:", error);
     }
   };
 
@@ -59,7 +49,7 @@ const UpdateProductModal = ({ isVisible, setVisibility, productData }) => {
       <div className="modal_body">
         <div className="modal_content">
           <div className="auth-form_heading">
-            <h3 className="auth-form_signUp">Update Product</h3>
+            <h3 className="auth-form_signUp">Create Product</h3>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -127,7 +117,7 @@ const UpdateProductModal = ({ isVisible, setVisibility, productData }) => {
                   Back
                 </button>
                 <button type="submit" className="btn btn--primary">
-                  Update
+                  Create
                 </button>
               </div>
             </div>
@@ -138,4 +128,4 @@ const UpdateProductModal = ({ isVisible, setVisibility, productData }) => {
   );
 };
 
-export default UpdateProductModal;
+export default CreateProductModal;

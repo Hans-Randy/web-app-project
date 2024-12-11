@@ -199,6 +199,86 @@ export const getProductsByName = async (req, res) => {
   }
 };
 
+// GET all products containing a particular substring in category
+export const getProductsByCategory = async (req, res) => {
+  const { category } = req.query; // Extract the 'category' query string parameter
+
+  try {
+    // Check if the category query parameter exists
+    if (!category) {
+      return res
+        .status(400)
+        .json({ message: "Category query parameter is required" });
+    }
+
+    // Find products where the category contains the substring
+    const products = await Product.find({
+      category: { $regex: category, $options: "i" }, // Case-insensitive search in 'category'
+    });
+
+    if (products.length === 0) {
+      return res.status(404).json({ message: "No products found" });
+    }
+
+    // Use Promise.all to resolve asynchronous calls for each product
+    const productsWithImages = await Promise.all(
+      products.map(async (product) => {
+        // Find the image by ID
+        const images = await bucket.find({ _id: product.imageId }).toArray();
+        if (!images || images.length === 0) {
+          return null; // Return null if no image is found
+        }
+
+        const image = images[0];
+
+        // Stream the file content and encode it in Base64
+        const base64File = await new Promise((resolve, reject) => {
+          let fileData = Buffer.from([]);
+          const downloadStream = bucket.openDownloadStream(image._id);
+
+          downloadStream.on("data", (chunk) => {
+            fileData = Buffer.concat([fileData, chunk]);
+          });
+
+          downloadStream.on("end", () => {
+            resolve(fileData.toString("base64")); // Resolve with Base64 encoded data
+          });
+
+          downloadStream.on("error", (err) => {
+            reject(err); // Reject on error
+          });
+        });
+
+        return {
+          ...product._doc,
+          image: {
+            filename: image.filename,
+            contentType: image.contentType,
+            length: image.length,
+            uploadDate: image.uploadDate,
+            data: base64File, // Send file content encoded in Base64
+          },
+        };
+      })
+    );
+
+    // Filter out any null results (products without images)
+    const validProducts = productsWithImages.filter(
+      (product) => product !== null
+    );
+
+    if (validProducts.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No products with valid images found." });
+    }
+
+    res.json(validProducts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // POST create a new product
 export const createProduct = async (req, res) => {
   // Validate data
