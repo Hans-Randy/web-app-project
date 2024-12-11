@@ -46,7 +46,7 @@ export const updateProduct = async (productId, productData) => {
   try {
     return await axios.put(`${API_PRODUCT_URL}/${productId}`, productData, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
       withCredentials: true, // Include credentials (cookies)
     });

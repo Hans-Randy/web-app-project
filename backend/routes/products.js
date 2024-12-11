@@ -81,7 +81,7 @@ router.get("/:id", getProductById);
 router.post("/", uploadSingleFile, uploadFileToGridFS, createProduct);
 
 // PUT update an existing product
-router.put("/:id", updateProduct);
+router.put("/:id", uploadSingleFile, uploadFileToGridFS, updateProduct);
 
 // PATCH partially update a product
 router.patch("/:id", patchProduct);

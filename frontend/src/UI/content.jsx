@@ -3,10 +3,14 @@ import "../layout/css/content.css";
 import "../layout/css/responsive.css";
 import { useEffect, useState } from "react";
 import { getAllProducts, deleteProductById } from "../utils/products";
+import UpdateProductModal from "./updateProductModal";
 
 function Content() {
   const [products, setProducts] = useState([]);
   const [isLoading, setLoading] = useState(true); // Set loading to true initially
+  const [productUpdateModalVisibility, setProductUpdateModalVisibilty] =
+    useState(false);
+  const [productData, setProductData] = useState({});
 
   useEffect(() => {
     const handleGetAllProducts = async () => {
@@ -23,9 +27,8 @@ function Content() {
   }, []);
 
   const handleEdit = (product) => {
-    //setCurrentProduct(product);
-    //setFormData({ name: product.name, price: product.price, image: null });
-    //openModal();
+    setProductUpdateModalVisibilty(true);
+    setProductData(product);
   };
 
   const handleDelete = async (productId) => {
@@ -51,6 +54,15 @@ function Content() {
 
   return (
     <>
+      {productUpdateModalVisibility ? (
+        <UpdateProductModal
+          isVisible={productUpdateModalVisibility}
+          setVisibility={setProductUpdateModalVisibilty}
+          productData={productData}
+        ></UpdateProductModal>
+      ) : (
+        ""
+      )}
       <div className="home-product">
         {products.map((prod) => (
           <div className="grid_collumn-2-4" key={prod._id}>
