@@ -10,11 +10,13 @@ import { useState, useEffect } from "react";
 import SignupModal from "./signupModal";
 import SigninModal from "./signinModal";
 import { signOut } from "../utils/auth";
-import UpdateProductModal from "./updateProductModal";
+import CreateProductModal from "./createProductModal";
 
 function Navbar() {
   const [signupVis, setSignupvis] = useState(false);
   const [signinVis, setSigninvis] = useState(false);
+  const [productCreateModalVisibility, setProductCreateModalVisibilty] =
+    useState(false);
 
   useEffect(() => {
     isLoggedIn();
@@ -53,6 +55,10 @@ function Navbar() {
     }
   };
 
+  const handleAddNewProduct = (product) => {
+    setProductCreateModalVisibilty(true);
+  };
+
   return (
     <header className="header">
       <SignupModal
@@ -63,12 +69,28 @@ function Navbar() {
         isVisible={signinVis}
         setVisibility={setSigninvis}
       ></SigninModal>
+      {productCreateModalVisibility ? (
+        <CreateProductModal
+          isVisible={productCreateModalVisibility}
+          setVisibility={setProductCreateModalVisibilty}
+        ></CreateProductModal>
+      ) : (
+        ""
+      )}
       <nav className="nav">
         <ul className="nav-ul">
           <li className="nav-li">
             <img className="nav-img" src="./img/logo1.png"></img>
           </li>
-          <li className="nav-li">Deliver to Canada</li>
+          {isLoggedIn() ? (
+            <li className="nav-li">
+              <a onClick={handleAddNewProduct} className="nav-sign">
+                Add new product
+              </a>
+            </li>
+          ) : (
+            <li className="nav-li">Deliver to Canada</li>
+          )}
           <div className="searchBar">
             <input
               type="text"
