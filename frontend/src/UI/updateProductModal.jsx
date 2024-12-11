@@ -1,7 +1,7 @@
 import "../layout/css/layout.css";
 import "../layout/css/modal.css";
 import React, { useState } from "react";
-import { updateProduct } from "../utils/products";
+import { updateProduct, patchProduct } from "../utils/products";
 
 const UpdateProductModal = ({ isVisible, setVisibility, productData }) => {
   const [name, setName] = useState(productData.name);
@@ -30,7 +30,17 @@ const UpdateProductModal = ({ isVisible, setVisibility, productData }) => {
     }
 
     try {
-      const result = await updateProduct(productData._id, formData); // Pass FormData to updateProduct
+      let result;
+      if (imageFile) result = await updateProduct(productData._id, formData);
+      // Pass FormData to updateProduct
+      else
+        result = await patchProduct(productData._id, {
+          name,
+          description,
+          price,
+          category,
+          quantity,
+        });
       console.log("Product Update Successful:", result.data);
       handleClose();
       window.location.reload(); // Optional: reload page or handle state update
