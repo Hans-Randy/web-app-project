@@ -244,6 +244,7 @@ export const updateProduct = async (req, res) => {
     product.price = price;
     product.quantity = quantity;
     product.category = category;
+    product.imageId = req.uploadedFile.id;
 
     const updatedproduct = await product.save();
     res.json(updatedproduct);

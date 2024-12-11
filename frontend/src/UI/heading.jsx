@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import SignupModal from "./signupModal";
 import SigninModal from "./signinModal";
 import { signOut } from "../utils/auth";
+import UpdateProductModal from "./updateProductModal";
 
 function Navbar() {
   const [signupVis, setSignupvis] = useState(false);
