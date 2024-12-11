@@ -2,20 +2,23 @@ import "../layout/css/layout.css";
 import "../layout/css/category.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getDistinctCategories } from "../utils/categories";
 
 function Category() {
-  const Categories = [
-    "Gaming accessories",
-    "Home & Kitchen",
-    "Beauty & Personal Care",
-    "Kids",
-    "Watches",
-    "Video Games",
-    "Clothing, Shoes & Jewelry",
-    "Toys for all ages",
-    "travel essentials",
-  ];
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const handleGetAllCategories = async () => {
+      try {
+        const response = await getDistinctCategories();
+        setCategories(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    handleGetAllCategories();
+  }, []);
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -31,7 +34,7 @@ function Category() {
         Category
       </h3>
       <ul className="cat-list">
-        {Categories.map((category, index) => (
+        {categories.map((category, index) => (
           <li
             key={index}
             onClick={() => handleClick(index)}
