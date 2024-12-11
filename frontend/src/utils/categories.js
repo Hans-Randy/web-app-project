@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Base URL for the API
-const API_URL = "http://localhost:5000/api/categories";
+const API_URL = process.env.REACT_APP_API_CATEGORY_URL;
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common["Content-Type"] = "application/json";
