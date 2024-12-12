@@ -298,7 +298,39 @@ export const createProduct = async (req, res) => {
 
   try {
     const savedProduct = await product.save();
-    res.json(savedProduct);
+
+    const images = await bucket.find({ _id: product.imageId }).toArray();
+
+    const image = images[0];
+
+    // Stream the file content and encode it in Base64
+    const base64File = await new Promise((resolve, reject) => {
+      let fileData = Buffer.from([]);
+      const downloadStream = bucket.openDownloadStream(image._id);
+
+      downloadStream.on("data", (chunk) => {
+        fileData = Buffer.concat([fileData, chunk]);
+      });
+
+      downloadStream.on("end", () => {
+        resolve(fileData.toString("base64")); // Resolve with Base64 encoded data
+      });
+
+      downloadStream.on("error", (err) => {
+        reject(err); // Reject on error
+      });
+    });
+
+    res.status(200).json({
+      savedProduct,
+      image: {
+        filename: image.filename,
+        contentType: image.contentType,
+        length: image.length,
+        uploadDate: image.uploadDate,
+        data: base64File, // Send file content encoded in Base64
+      },
+    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -327,7 +359,39 @@ export const updateProduct = async (req, res) => {
     product.imageId = req.uploadedFile.id;
 
     const updatedproduct = await product.save();
-    res.json(updatedproduct);
+
+    const images = await bucket.find({ _id: product.imageId }).toArray();
+
+    const image = images[0];
+
+    // Stream the file content and encode it in Base64
+    const base64File = await new Promise((resolve, reject) => {
+      let fileData = Buffer.from([]);
+      const downloadStream = bucket.openDownloadStream(image._id);
+
+      downloadStream.on("data", (chunk) => {
+        fileData = Buffer.concat([fileData, chunk]);
+      });
+
+      downloadStream.on("end", () => {
+        resolve(fileData.toString("base64")); // Resolve with Base64 encoded data
+      });
+
+      downloadStream.on("error", (err) => {
+        reject(err); // Reject on error
+      });
+    });
+
+    res.status(200).json({
+      updatedproduct,
+      image: {
+        filename: image.filename,
+        contentType: image.contentType,
+        length: image.length,
+        uploadDate: image.uploadDate,
+        data: base64File, // Send file content encoded in Base64
+      },
+    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -351,7 +415,39 @@ export const patchProduct = async (req, res) => {
     Object.assign(product, updates);
 
     const updatedProduct = await product.save();
-    res.json(updatedProduct);
+
+    const images = await bucket.find({ _id: product.imageId }).toArray();
+
+    const image = images[0];
+
+    // Stream the file content and encode it in Base64
+    const base64File = await new Promise((resolve, reject) => {
+      let fileData = Buffer.from([]);
+      const downloadStream = bucket.openDownloadStream(image._id);
+
+      downloadStream.on("data", (chunk) => {
+        fileData = Buffer.concat([fileData, chunk]);
+      });
+
+      downloadStream.on("end", () => {
+        resolve(fileData.toString("base64")); // Resolve with Base64 encoded data
+      });
+
+      downloadStream.on("error", (err) => {
+        reject(err); // Reject on error
+      });
+    });
+
+    res.status(200).json({
+      updatedProduct,
+      image: {
+        filename: image.filename,
+        contentType: image.contentType,
+        length: image.length,
+        uploadDate: image.uploadDate,
+        data: base64File, // Send file content encoded in Base64
+      },
+    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

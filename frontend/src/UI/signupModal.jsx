@@ -1,9 +1,8 @@
 import "../layout/css/layout.css";
 import "../layout/css/modal.css";
 import React, { useRef } from "react";
-import { signUp } from "../utils/auth";
 
-const SignupModal = ({ isVisible, setVisibility }) => {
+const SignupModal = ({ isVisible, setVisibility, onSignUp }) => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const firstNameRef = useRef(null);
@@ -21,12 +20,7 @@ const SignupModal = ({ isVisible, setVisibility }) => {
       address: addressRef.current.value,
     };
 
-    try {
-      const result = await signUp(userData);
-      console.log("Sign Up Successful:", result);
-    } catch (error) {
-      console.error("Sign Up Failed:", error);
-    }
+    await onSignUp(userData);
     handleClose();
   };
 
