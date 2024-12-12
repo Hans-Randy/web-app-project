@@ -38,8 +38,6 @@ function App() {
     }
   };
 
-  console.log(`loggedIn: ${loggedIn} before all useEffect`);
-
   useEffect(() => {
     const checkLoginStatus = () => {
       let cookie = getCookie("jwt");

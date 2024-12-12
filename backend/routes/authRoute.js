@@ -56,8 +56,9 @@ router.post("/login", async (req, res) => {
     // Create the token and stores in cookie if the user is validated
     const token = createToken(user._id);
     res.cookie("jwt", token, {
-      httpOnly: false,
+      httpOnly: true,
       maxAge: 3 * 24 * 60 * 60 * 1000,
+      secure: true,
       sameSite: "None", // Allows cross-origin requests
     });
 
