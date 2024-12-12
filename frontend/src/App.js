@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navbar from "./UI/heading";
 import Content from "./UI/content";
 import Category from "./UI/category";
@@ -9,6 +9,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [products, setProducts] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [userData, setUserData] = useState({});
+  
 
   const handleSignOut = async () => {
     // Perform sign-out logic here (e.g., clear tokens)
@@ -22,8 +24,11 @@ function App() {
 
   const handleSignIn = async (credentials) => {
     try {
-      await signIn(credentials); // Call your sign-in logic
+      let data = await signIn(credentials); // Call your sign-in logic
+      setUserData(data.data)
+      
       setLoggedIn(true); // Update state on successful sign-in
+      
     } catch (error) {
       console.error("Sign In Failed:", error);
     }
@@ -31,7 +36,8 @@ function App() {
 
   const handleSignUp = async (userData) => {
     try {
-      await signUp(userData); // Call your sign-up logic
+      let data = await signUp(userData); // Call your sign-up logic
+      setUserData(data.data)
       setLoggedIn(true); // Update state on successful sign-up
     } catch (error) {
       console.error("Sign Up Failed:", error);
@@ -89,6 +95,7 @@ function App() {
         onSignIn={handleSignIn}
         onSignUp={handleSignUp}
         onAddProduct={handleAddProduct}
+        user={userData}
       />
       <div className="container">
         <div className="grid grid_full-width">

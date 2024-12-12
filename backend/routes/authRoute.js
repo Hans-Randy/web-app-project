@@ -62,7 +62,7 @@ router.post("/login", async (req, res) => {
       sameSite: "None", // Allows cross-origin requests
     });
 
-    res.status(200).json(res.getHeaders());
+    res.status(200).json(user);
   } catch (ex) {
     console.log("Login Failure: " + ex);
     // Return the error in response if the user credential validation failed.
