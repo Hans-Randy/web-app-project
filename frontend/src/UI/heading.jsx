@@ -6,17 +6,21 @@ import {
   faCartShopping,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import SignupModal from "./signupModal";
 import SigninModal from "./signinModal";
 import CreateProductModal from "./createProductModal";
+import Profile from "./profile";
+import Allusers from "./allUsers";
 
-function Navbar({ loggedIn, onSignOut, onSignIn, onSignUp, onAddProduct }) {
+function Navbar({ loggedIn, onSignOut, onSignIn, onSignUp, onAddProduct, user }) {
   const [signupVis, setSignupVis] = useState(false);
   const [signinVis, setSigninVis] = useState(false);
+  const [profileVis, setProfileVis] = useState(false);
+  const [userListVis, setUserListVis] = useState(false);
   const [productCreateModalVisibility, setProductCreateModalVisibility] =
     useState(false);
-
+    
   return (
     <header className="header">
       <SignupModal
@@ -28,6 +32,18 @@ function Navbar({ loggedIn, onSignOut, onSignIn, onSignUp, onAddProduct }) {
         isVisible={signinVis}
         setVisibility={setSigninVis}
         onSignIn={onSignIn}
+      />
+      <Profile
+        isVisible={profileVis}
+        setVisibility={setProfileVis}
+        user={user}
+        onSignOut={onSignOut}
+        
+      />
+      <Allusers
+        isVisible={userListVis}
+        setVisibility={setUserListVis}
+        loggedIn={loggedIn}
       />
       {productCreateModalVisibility && (
         <CreateProductModal
@@ -64,6 +80,16 @@ function Navbar({ loggedIn, onSignOut, onSignIn, onSignUp, onAddProduct }) {
                   />
                 </button>
               </div>
+              <li className="nav-li">
+                <a onClick= {() => setUserListVis(true)} className="nav-sign">
+                  View Users
+                </a>
+              </li>
+              <li className="nav-li">
+                <a onClick= {() => setProfileVis(true)} className="nav-sign">
+                  View Profile
+                </a>
+              </li>
               <li className="nav-li">
                 <a onClick={onSignOut} className="nav-sign">
                   Sign Out

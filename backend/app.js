@@ -44,7 +44,8 @@ app.use(cors(corsOptions));
 
 // Routes
 app.use("/api/auth/", authRoute);
-app.use("/api/users", requireAuth, users);
+//app.use("/api/users", requireAuth, users);
+app.use("/api/users", users);
 app.use("/api/products", requireAuth, products);
 
 const port = process.env.PORT;
