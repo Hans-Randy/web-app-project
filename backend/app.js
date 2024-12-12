@@ -3,7 +3,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import products from "./routes/products.js";
-import categories from "./routes/categories.js";
 import { connectToDB } from "./utils/database.js";
 import users from "./routes/users.js";
 import { requireAuth } from "./utils/utils.js";
@@ -47,7 +46,6 @@ app.use(cors(corsOptions));
 app.use("/api/auth/", authRoute);
 app.use("/api/users", requireAuth, users);
 app.use("/api/products", requireAuth, products);
-app.use("/api/categories", categories);
 
 const port = process.env.PORT;
 app.listen(port, () => {

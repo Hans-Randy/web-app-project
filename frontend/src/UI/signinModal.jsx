@@ -1,9 +1,8 @@
 import "../layout/css/layout.css";
 import "../layout/css/modal.css";
 import React, { useRef } from "react";
-import { signIn } from "../utils/auth";
 
-const SigninModal = ({ isVisible, setVisibility }) => {
+const SigninModal = ({ isVisible, setVisibility, onSignIn }) => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -18,15 +17,8 @@ const SigninModal = ({ isVisible, setVisibility }) => {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
-
-    try {
-      const result = await signIn(credentials);
-      console.log("Sign In Successful:", result);
-    } catch (error) {
-      console.error("Sign In Failed:", error);
-    }
+    await onSignIn(credentials); // Call the sign-in handler
     handleClose();
-    window.location.reload();
   };
 
   return (

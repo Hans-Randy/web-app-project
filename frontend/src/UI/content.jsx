@@ -1,46 +1,27 @@
 import "../layout/css/layout.css";
 import "../layout/css/content.css";
 import "../layout/css/responsive.css";
-import { useEffect, useState } from "react";
-import { getAllProducts, deleteProductById } from "../utils/products";
+import { useState } from "react";
 import UpdateProductModal from "./updateProductModal";
+import CreateProductModal from "./createProductModal";
+import { deleteProductById } from "../utils/products";
 
-function Content() {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setLoading] = useState(true); // Set loading to true initially
-  const [productUpdateModalVisibility, setProductUpdateModalVisibilty] =
+const Content = ({ products, onDelete, onUpdate, isLoading }) => {
+  const [productUpdateModalVisibility, setProductUpdateModalVisibility] =
     useState(false);
   const [productData, setProductData] = useState({});
 
-  useEffect(() => {
-    const handleGetAllProducts = async () => {
-      try {
-        const response = await getAllProducts();
-        setProducts(response.data);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false); // Ensure loading is set to false after fetching
-      }
-    };
-    handleGetAllProducts();
-  }, []);
-
-  const handleEdit = (product) => {
-    setProductUpdateModalVisibilty(true);
+  const handleEdit = async (product) => {
+    setProductUpdateModalVisibility(true);
     setProductData(product);
   };
 
   const handleDelete = async (productId) => {
     try {
       await deleteProductById(productId);
-      setLoading(true);
-      const response = await getAllProducts();
-      setProducts(response.data);
+      await onDelete(productId);
     } catch (err) {
       console.log(err);
-    } finally {
-      setLoading(false); // Ensure loading is set to false after fetching
     }
   };
 
@@ -54,22 +35,24 @@ function Content() {
 
   return (
     <>
-      {productUpdateModalVisibility ? (
+      {productUpdateModalVisibility && (
         <UpdateProductModal
           isVisible={productUpdateModalVisibility}
-          setVisibility={setProductUpdateModalVisibilty}
+          setVisibility={setProductUpdateModalVisibility}
           productData={productData}
-        ></UpdateProductModal>
-      ) : (
-        ""
+          onUpdate={onUpdate}
+        />
       )}
+      <CreateProductModal />
       <div className="home-product">
         {products.map((prod) => (
           <div className="grid_collumn-2-4" key={prod._id}>
             <div className="home-product-item">
               <div
                 style={{
-                  backgroundImage: `url(data:${prod.image.contentType};base64,${prod.image.data})`, // Correctly format the background image
+                  backgroundImage: `url(data:${
+                    prod.image?.contentType ?? ""
+                  };base64,${prod.image?.data ?? ""})`, // Correctly format the background image
                   backgroundSize: "cover", // Optional: cover the entire div
                   backgroundPosition: "center", // Optional: center the image
                   height: "200px", // Set a height for the image container
@@ -86,6 +69,6 @@ function Content() {
       </div>
     </>
   );
-}
+};
 
 export default Content;

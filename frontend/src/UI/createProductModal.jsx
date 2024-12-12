@@ -3,13 +3,13 @@ import "../layout/css/modal.css";
 import React, { useState } from "react";
 import { createProduct } from "../utils/products";
 
-const CreateProductModal = ({ isVisible, setVisibility }) => {
-  const [name, setName] = useState(null);
-  const [description, setDescription] = useState(null);
-  const [price, setPrice] = useState(null);
-  const [category, setCategory] = useState(null);
-  const [quantity, setQuantity] = useState(null);
-  const [imageFile, setImageFile] = useState(null); // State to hold the selected image file
+const CreateProductModal = ({ isVisible, setVisibility, onAddProduct }) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
+  const [category, setCategory] = useState("");
+  const [quantity, setQuantity] = useState(0);
+  const [imageFile, setImageFile] = useState(""); // State to hold the selected image file
 
   const handleImageChange = (e) => {
     setImageFile(e.target.files[0]); // Set the selected file
@@ -25,15 +25,32 @@ const CreateProductModal = ({ isVisible, setVisibility }) => {
     formData.append("price", price);
     formData.append("category", category);
     formData.append("quantity", quantity);
-    if (imageFile) {
-      formData.append("file", imageFile); // Append the image file if it exists
-    }
+    formData.append("file", imageFile); // Append the image file if it exists
 
     try {
       const result = await createProduct(formData); // Pass FormData to updateProduct
+      const {
+        _id,
+        name,
+        description,
+        category,
+        price,
+        quantity,
+        imageId,
+        image,
+      } = result.data;
+      await onAddProduct({
+        _id,
+        name,
+        description,
+        category,
+        price,
+        quantity,
+        imageId,
+        image,
+      });
       console.log("Create Product Successful:", result.data);
       handleClose();
-      window.location.reload(); // Optional: reload page or handle state update
     } catch (error) {
       console.error("Create Product Failed:", error);
     }

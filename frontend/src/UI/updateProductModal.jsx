@@ -3,7 +3,12 @@ import "../layout/css/modal.css";
 import React, { useState } from "react";
 import { updateProduct, patchProduct } from "../utils/products";
 
-const UpdateProductModal = ({ isVisible, setVisibility, productData }) => {
+const UpdateProductModal = ({
+  isVisible,
+  setVisibility,
+  productData,
+  onUpdate,
+}) => {
   const [name, setName] = useState(productData.name);
   const [description, setDescription] = useState(productData.description);
   const [price, setPrice] = useState(productData.price);
@@ -42,8 +47,28 @@ const UpdateProductModal = ({ isVisible, setVisibility, productData }) => {
           quantity,
         });
       console.log("Product Update Successful:", result.data);
+      const {
+        _id,
+        name,
+        description,
+        category,
+        price,
+        quantity,
+        imageId,
+        image,
+      } = result.data;
+      await onUpdate({
+        _id,
+        name,
+        description,
+        category,
+        price,
+        quantity,
+        imageId,
+        image,
+      });
+
       handleClose();
-      window.location.reload(); // Optional: reload page or handle state update
     } catch (error) {
       console.error("Product Update Failed:", error);
     }
