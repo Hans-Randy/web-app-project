@@ -4,7 +4,7 @@ import Content from "./UI/content";
 import Category from "./UI/category";
 import { signOut, signIn, signUp } from "./utils/auth";
 import { getAllProducts } from "./utils/products";
-
+import getCookie from "./utils/cookie";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [products, setProducts] = useState([]);
@@ -38,29 +38,21 @@ function App() {
     }
   };
 
+  console.log(`loggedIn: ${loggedIn} before all useEffect`);
+
   useEffect(() => {
     const checkLoginStatus = () => {
-      const cookies = document.cookie.split(";");
-      for (let cookie of cookies) {
-        cookie = cookie.trim();
-        if (cookie.startsWith("jwt" + "=") && !loggedIn) {
-          setLoggedIn(true);
-          break;
-        }
+      let cookie = getCookie("jwt");
+      if (cookie && !loggedIn) {
+        setLoggedIn(true);
       }
-      if (loggedIn) {
+      if (!cookie && loggedIn) {
         setLoggedIn(false);
       }
     };
 
     // Check login status initially
     checkLoginStatus();
-
-    // Set an interval to check login status every 5 minutes
-    const intervalId = setInterval(checkLoginStatus, 5 * 60 * 1000);
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(intervalId);
   }, []);
 
   // Fetch products on initial render

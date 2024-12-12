@@ -24,7 +24,9 @@ export const createProduct = async (formData) => {
 // Get All Products
 export const getAllProducts = async () => {
   try {
-    return await axios.get(API_URL);
+    return await axios.get(API_URL, {
+      withCredentials: true,
+    });
   } catch (error) {
     console.error("Error fetching products:", error);
     throw error;
@@ -34,7 +36,9 @@ export const getAllProducts = async () => {
 // Get Product By ID
 export const getProductById = async (productId) => {
   try {
-    return await axios.get(`${API_URL}/${productId}`);
+    return await axios.get(`${API_URL}/${productId}`, {
+      withCredentials: true,
+    });
   } catch (error) {
     console.error("Error fetching product by ID:", error);
     throw error;
@@ -74,7 +78,9 @@ export const patchProduct = async (productId, productData) => {
 // Delete Product By ID
 export const deleteProductById = async (productId) => {
   try {
-    return await axios.delete(`${API_URL}/${productId}`);
+    return await axios.delete(`${API_URL}/${productId}`, {
+      withCredentials: true,
+    });
   } catch (error) {
     console.error("Error deleting product by ID:", error);
     throw error;
