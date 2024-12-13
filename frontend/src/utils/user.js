@@ -34,7 +34,8 @@ export const deleteUser = async (userId) => {
 
 export const getAllUsers = async () => {
   try {
-    return await axios.get('http://localhost:5000/api/users', {
+    return await axios.get(`${API_URL}`, {
+    // return await axios.get('http://localhost:5000/api/users', {
       withCredentials: true,
     });
   } catch (error) {
