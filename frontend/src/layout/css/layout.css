@@ -59,7 +59,8 @@
 
 .btn.btn--primary {
     background-image: var(--primary);
-    color: white
+    color: white;
+    cursor: pointer;
 }
 
 .btn.btn--disabled {
@@ -68,3 +69,8 @@
     background-color: #c3c3c3;
 }
 
+.btn.btn--delete {
+    background: red;
+    color: white;
+    cursor: pointer;
+}

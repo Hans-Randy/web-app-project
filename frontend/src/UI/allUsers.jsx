@@ -25,23 +25,17 @@ const Allusers = ({isVisible, setVisibility, loggedIn}) => {
         setVisibility(false);
     };
 
-    const styles = {
-        overflow: {
-            overflow: "scroll"
-        }
-    }
-
     return (
         <>
 
             <div className={`${isVisible ? "modal" : "hidden"}`}>
             <div className="modal_overlay"></div>
             <div className="modal_body">
-              <div className="modal_content">
+              <div className="profile_body">
                 <div className="auth-form_heading">
                   <h3 className="auth-form_signIn">Welcome </h3>
                 </div>
-                <div style={styles.overflow}>
+                <div>
                 {data.map((user) => {
                     return <p>{user.firstName} {user.lastName}</p>
                 })}
@@ -61,16 +55,18 @@ const Allusers = ({isVisible, setVisibility, loggedIn}) => {
                   />
                 </div> */}
       
+              </div>
                 <div className="auth-form_control">
+
                   <div className="auth-form_btn">
                     <button className="btn btn_back" onClick={handleClose}>
                       Back
                     </button>
-                   
                   </div>
+
                 </div>
-              </div>
-            </div>
+            </div>  
+
           </div>
         
         
