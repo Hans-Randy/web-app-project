@@ -7,8 +7,8 @@ axios.defaults.headers.common["Content-Type"] = "application/json";
 
 export const deleteUser = async (userId) => {
     try {
-      //return await axios.delete(`${API_URL}/${userId}`, {
-        return await axios.delete('http://localhost:5000/api/users/'+ userId, {
+      return await axios.delete(`${API_URL}/${userId}`, {
+        // return await axios.delete('http://localhost:5000/api/users/'+ userId, {
             withCredentials: true
       });
     } catch (error) {
@@ -19,7 +19,8 @@ export const deleteUser = async (userId) => {
 
   export const editUser = async (userId, formData) => {
     try {
-      return await axios.put(`http://localhost:5000/api/users/` + userId, formData, {
+      // return await axios.put(`http://localhost:5000/api/users/` + userId, formData, {
+      return await axios.put(`${API_URL}/${userId}`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
