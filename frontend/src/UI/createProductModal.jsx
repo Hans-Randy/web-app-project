@@ -29,26 +29,14 @@ const CreateProductModal = ({ isVisible, setVisibility, onAddProduct }) => {
 
     try {
       const result = await createProduct(formData); // Pass FormData to updateProduct
-      const {
-        _id,
-        name,
-        description,
-        category,
-        price,
-        quantity,
-        imageId,
-        image,
-      } = result.data;
-      await onAddProduct({
-        _id,
-        name,
-        description,
-        category,
-        price,
-        quantity,
-        imageId,
-        image,
-      });
+      const _id = result.data.savedProduct._id;
+      const name = result.data.savedProduct.name;
+      const description = result.data.savedProduct.description;
+      const price = result.data.savedProduct.price;
+      const quantity = result.data.savedProduct.quantity;
+      const image = result.data.image;
+
+      await onAddProduct({ _id, name, description, price, quantity, image });
       console.log("Create Product Successful:", result.data);
       handleClose();
     } catch (error) {
