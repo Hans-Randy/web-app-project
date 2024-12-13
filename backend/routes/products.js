@@ -57,11 +57,13 @@ const uploadFileToGridFS = async (req, res, next) => {
 
     uploadStream.end(file.buffer); // Write file data to GridFS
 
-    req.uploadedFile = {
-      id: uploadStream.id,
-      filename: uniqueFileName,
-    };
-    next();
+    uploadStream.on("finish", () => {
+      req.uploadedFile = {
+        id: uploadStream.id,
+        filename: uniqueFileName,
+      };
+      next();
+    });
   } catch (err) {
     res.status(500).send("Image upload failed: " + err.message);
   }
